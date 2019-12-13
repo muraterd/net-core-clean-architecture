@@ -20,7 +20,6 @@ namespace WebCMS.Controllers
 
         public IActionResult Index()
         {
-            DateTime.Parse("Murat");
             return View();
         }
 
