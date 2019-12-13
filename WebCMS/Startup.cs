@@ -1,12 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using WebCMS.Areas.Admin;
+using WebCMS.Areas.Api;
+using WebCMS.Areas.Web;
+using WebCMS.Data;
+using WebCMS.Services.Page;
+using WebCMS.Services.User;
 
 namespace WebCMS
 {
@@ -22,7 +34,26 @@ namespace WebCMS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddFeatureFolders()
+                .AddAreaFeatureFolders(new OdeToCode.AddFeatureFolders.AreaFeatureFolderOptions()
+                {
+                    DefaultAreaViewLocation = "Areas/{2}/Features/{1}/{0}.cshtml"
+                });
+
+            // Configure DI
+            services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("MsSql")));
+            services.AddScoped<UserService>();
+            services.AddScoped<PageService>();
+
+            // Configure Authentication
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+                options =>
+                {
+                    options.LoginPath = new PathString("/admin/auth/login");
+                    options.AccessDeniedPath = new PathString("/admin/auth/denied");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +70,21 @@ namespace WebCMS
             //    app.UseExceptionHandler("/Home/Error");
             //}
 
-            app.UseStaticFiles();
+            // Configure static files
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "Areas", "Admin", "wwwroot")),
+                RequestPath = "/admin/public"
+            });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "Areas", "Web", "wwwroot")),
+                RequestPath = "/public"
+            });
+
+            app.UseAuthentication();
 
             app.UseRouting();
 
@@ -50,6 +95,14 @@ namespace WebCMS
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            // Configure AutoMapper
+            Mapper.Initialize(o =>
+            {
+                ApiStartup.ConfigureAutoMapper(o);
+                AdminStartup.ConfigureAutoMapper(o);
+                WebStartup.ConfigureAutoMapper(o);
             });
         }
     }

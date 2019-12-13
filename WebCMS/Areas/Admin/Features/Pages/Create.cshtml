@@ -1,0 +1,48 @@
+@model WebCMS.Areas.Admin.Models.Page.PageModel
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Areas/Admin/Views/Layouts/_LayoutMain.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+
+<div class="content-wrapper">
+    <div class="content">
+
+        <div class="breadcrumb-wrapper">
+            <h1>Sayfalar</h1>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card card-default">
+                    <div class="card-header card-header-border-bottom">
+                        <h2>Yeni Sayfa</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" id="content-form">
+                            <div class="form-group">
+                                <label for="slug">Slug</label>
+                                <input asp-for="Slug" class="form-control" id="slug" />
+                                <span asp-validation-for="Slug" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input asp-for="Title" class="form-control" id="title" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+
+                            <textarea asp-for="Content">Next, use our Get Started docs to setup Tiny!</textarea>
+
+                            <div class="form-footer pt-5 border-top">
+                                <button type="submit" class="btn btn-primary btn-default">Kaydet</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

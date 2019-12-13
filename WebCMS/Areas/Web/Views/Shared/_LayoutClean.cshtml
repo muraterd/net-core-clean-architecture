@@ -1,0 +1,39 @@
+﻿<!doctype html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title</title>
+
+    <!-- Bootstrap -->
+    <link href="~/public/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- CSS -->
+    <link href="~/public/css/main.css" rel="stylesheet">
+
+    <!-- FAVICON -->
+    <link href="~/public/img/favicon.ico" rel="shortcut icon" />
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <main role="main" class="flex-shrink-0">
+        <div class="container mt-5">
+            <div class="row no-gutters" style="align-items: center">
+                <div class="col-auto">
+                    <img src="~/public/img/logo.png" class="mr-3" width="50" height="50" />
+                </div>
+                <div class="col-auto">
+                    <h1 class="m-0">Birthdate</h1>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

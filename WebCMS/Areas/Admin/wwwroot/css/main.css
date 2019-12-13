@@ -1,0 +1,11 @@
+﻿body {
+}
+
+.was-validated .form-control:invalid, .form-control.is-invalid, .was-validated .custom-select:invalid, .custom-select.is-invalid, .form-control.input-validation-error {
+    border-color: #fe5461;
+}
+
+.btn-pill-sm {
+    border-radius: 100px;
+    padding: 2px 10px;
+}
