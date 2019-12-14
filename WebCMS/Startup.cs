@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using WebCMS.Areas.Admin;
 using WebCMS.Areas.Api;
 using WebCMS.Areas.Web;
@@ -104,6 +105,19 @@ namespace WebCMS
                 AdminStartup.ConfigureAutoMapper(o);
                 WebStartup.ConfigureAutoMapper(o);
             });
+
+            // Create and Seed Database
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                Log.Information("Checking if database exists");
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
+                var created = dbContext.Database.EnsureCreated();
+
+                if (created)
+                    Log.Information("Database created!");
+                else
+                    Log.Information("Database is already created");
+            }
         }
     }
 }

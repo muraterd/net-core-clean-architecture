@@ -26,7 +26,6 @@ namespace WebCMS.Areas.Api.Features.Auth
         [HttpGet]
         public IActionResult Get()
         {
-            dbContext.Database.EnsureCreated();
             return Ok("Auth");
         }
 

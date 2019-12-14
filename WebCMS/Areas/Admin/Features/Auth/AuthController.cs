@@ -12,6 +12,11 @@ namespace WebCMS.Areas.Admin.Features.Auth
     [Route("admin/[controller]")]
     public class AuthController : Controller
     {
+        public AuthController()
+        {
+            
+        }
+
         [HttpGet("login")]
         public IActionResult Login()
         {
