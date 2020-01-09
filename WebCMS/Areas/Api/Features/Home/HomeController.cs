@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using WebCMS.Areas.Api.Filters;
+using WebCMS.Filters;
 
 namespace WebCMS.Areas.Api.Features.Home
 {
-    [ApiAuthorize]
+    [JwtAuthorize]
     [Route("api/[controller]")]
     public class HomeController : ControllerBase
     {
