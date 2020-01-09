@@ -18,6 +18,7 @@ using WebCMS.Areas.Admin;
 using WebCMS.Areas.Api;
 using WebCMS.Areas.Web;
 using WebCMS.Data;
+using WebCMS.Helpers;
 using WebCMS.Services.Page;
 using WebCMS.Services.User;
 
@@ -85,9 +86,9 @@ namespace WebCMS
                 RequestPath = "/public"
             });
 
-            app.UseAuthentication();
-
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
@@ -118,6 +119,8 @@ namespace WebCMS
                 else
                     Log.Information("Database is already created");
             }
+
+            Log.Information($"Running in environment: {env.EnvironmentName}");
         }
     }
 }

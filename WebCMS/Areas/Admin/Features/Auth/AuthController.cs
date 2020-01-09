@@ -32,10 +32,12 @@ namespace WebCMS.Areas.Admin.Features.Auth
             }
 
             //HttpContext.User
-            var claims = new List<Claim>();
-            claims.Add(new Claim("Id", "3"));
-            claims.Add(new Claim(ClaimTypes.Name, "muraterd"));
-            claims.Add(new Claim("Email", "muraterd@fdsfds.com"));
+            var claims = new List<Claim>
+            {
+                new Claim("Id", "3"),
+                new Claim(ClaimTypes.Name, "muraterd"),
+                new Claim("Email", "muraterd@fdsfds.com")
+            };
 
             var identity = new ClaimsIdentity(claims, "Jwt");
             var principal = new ClaimsPrincipal(identity);
