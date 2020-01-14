@@ -7,78 +7,72 @@ using WebCMS.Areas.Api.Features.Auth.Requests;
 using WebCMS.Areas.Api.Models;
 using WebCMS.Controllers;
 using WebCMS.Data;
-using WebCMS.Data.Entities;
+using Data.Entities;
 using WebCMS.Filters;
 using WebCMS.Helpers;
+using Application.Services.User;
+using System.Threading.Tasks;
+using Application.Interfaces.Providers;
+using Application.Auth;
+using Application.Exceptions;
 
 namespace WebCMS.Areas.Api.Features.Auth
 {
     [Route("api/[controller]")]
     public class AuthController : BaseController
     {
+        private readonly SigninManager signinManager;
+        private readonly IHashProvider hashProvider;
+        private readonly UserService userService;
         private readonly AppDbContext dbContext;
 
-        public AuthController(AppDbContext dbContext)
+        public AuthController(AppDbContext dbContext, UserService userService, SigninManager signinManager)
         {
             this.dbContext = dbContext;
-        }
-
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok("Auth");
-        }
-
-        [HttpPost("login2")]
-        public IActionResult Login2()
-        {
-            return Ok("Hede");
+            this.userService = userService;
+            this.signinManager = signinManager;
         }
 
         [ValidateModel]
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            UserEntity user = dbContext.Users.FirstOrDefault(w => w.Email == request.Email.Trim() &&  
-            !w.IsDeleted);
-
-            if (user == null)
+            try
             {
-                return Unauthorized(new { message = "Kullanıcı adı veya şifre hatalı" });
-            }
+                var user = await signinManager.Signin(request.Email, request.Password);
 
-            if (!user.IsActive)
+                SignedTokenResult signedToken = JwtHelper.Sign(user);
+
+                UserModel userModel = Mapper.Map<UserModel>(user);
+
+                return Ok(new { signedToken.Token, signedToken.ExpiresIn, User = userModel });
+            }
+            catch (AccessForbiddenException)
             {
                 return StatusCode(StatusCodes.Status403Forbidden);
             }
-
-            if(!BCrypt.Net.BCrypt.Verify(request.Password.Trim(), user.Password))
+            catch
             {
                 return Unauthorized(new { message = "Kullanıcı adı veya şifre hatalı" });
             }
-
-            SignedTokenResult signedToken = JwtHelper.Sign(user);
-
-            UserModel userModel = Mapper.Map<UserModel>(user);
-
-            return Ok(new { signedToken.Token, signedToken.ExpiresIn, User = userModel });
         }
 
         [ValidateModel]
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterRequest request)
         {
-            UserEntity user = dbContext.Users.FirstOrDefault(w => w.Email == request.Email.Trim() && 
+            UserEntity user = dbContext.Users.FirstOrDefault(w => w.Email == request.Email.Trim() &&
             !w.IsDeleted);
 
-            if(user != null)
+            if (user != null)
             {
                 return BadRequest(new { message = "This email is already registered" });
             }
 
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password.Trim());
 
-            user = new UserEntity() {
+            user = new UserEntity()
+            {
                 Email = request.Email.Trim(),
                 Password = hashedPassword
             };

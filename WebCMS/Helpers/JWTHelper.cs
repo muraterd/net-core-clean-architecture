@@ -1,7 +1,7 @@
 ﻿using System;
 using JWT.Algorithms;
 using JWT.Builder;
-using WebCMS.Data.Entities;
+using Data.Entities;
 
 namespace WebCMS.Helpers
 {

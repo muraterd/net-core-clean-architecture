@@ -3,8 +3,9 @@ using AutoMapper;
 using WebCMS.Areas.Admin.Features.Users.Requests;
 using WebCMS.Areas.Admin.Models;
 using WebCMS.Areas.Admin.Models.Page;
-using WebCMS.Data.Entities;
-using WebCMS.Services.User.Commands;
+using Data.Entities;
+using WebCMS.Areas.Admin.Features.Auth;
+using Application.Services.User.Commands;
 
 namespace WebCMS.Areas.Admin
 {
@@ -13,6 +14,7 @@ namespace WebCMS.Areas.Admin
         public static void ConfigureAutoMapper(IMapperConfigurationExpression o)
         {
             o.CreateMap<UpdateUserRequest, UpdateUserCommand>();
+            o.CreateMap<RegisterViewModel, CreateUserCommand>();
 
             o.CreateMap<BaseEntity, BaseModel>();
 

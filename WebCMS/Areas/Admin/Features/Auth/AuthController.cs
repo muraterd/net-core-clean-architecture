@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Application.Services.User;
+using Application.Services.User.Commands;
+using AutoMapper;
+using Data.Enums;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using WebCMS.Data;
 
 namespace WebCMS.Areas.Admin.Features.Auth
 {
@@ -12,14 +18,25 @@ namespace WebCMS.Areas.Admin.Features.Auth
     [Route("admin/[controller]")]
     public class AuthController : Controller
     {
-        public AuthController()
+        private readonly UserService userService;
+        private readonly AppDbContext dbContext;
+
+        public AuthController(AppDbContext dbContext, UserService userService)
         {
-            
+            this.dbContext = dbContext;
+            this.userService = userService;
         }
 
         [HttpGet("login")]
         public IActionResult Login()
         {
+            var isSuperAdminExist = dbContext.UserRoles.Any(w => w.Role == RoleType.SuperAdmin);
+
+            if(!isSuperAdminExist)
+            {
+                return RedirectToAction("Register");
+            }
+
             return View();
         }
 
@@ -57,6 +74,26 @@ namespace WebCMS.Areas.Admin.Features.Auth
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("/admin");
+        }
+
+        [HttpGet("register")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterViewModel request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(request);
+            }
+
+            var command = Mapper.Map<CreateUserCommand>(request);
+            await userService.CreateUser(command);
+
+            return View();
         }
     }
 }

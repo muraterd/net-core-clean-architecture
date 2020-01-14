@@ -2,8 +2,8 @@
 using AutoMapper;
 using WebCMS.Areas.Api.Features.User.Requests;
 using WebCMS.Areas.Api.Models;
-using WebCMS.Data.Entities;
-using WebCMS.Services.User.Commands;
+using Data.Entities;
+using Application.Services.User.Commands;
 
 namespace WebCMS.Areas.Api
 {

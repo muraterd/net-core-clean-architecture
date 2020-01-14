@@ -2,7 +2,7 @@
 using AutoMapper;
 using WebCMS.Areas.Web.Models;
 using WebCMS.Areas.Web.Models.Page;
-using WebCMS.Data.Entities;
+using Data.Entities;
 
 namespace WebCMS.Areas.Web
 {

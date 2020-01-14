@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using Application.Auth;
+using Application.Interfaces.Providers;
+using Application.Services.User;
 using AutoMapper;
+using Infrastructure.Providers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,15 +12,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
 using Serilog;
 using WebCMS.Areas.Admin;
 using WebCMS.Areas.Api;
 using WebCMS.Areas.Web;
 using WebCMS.Data;
-using WebCMS.Helpers;
 using WebCMS.Services.Page;
-using WebCMS.Services.User;
 
 namespace WebCMS
 {
@@ -36,17 +33,21 @@ namespace WebCMS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews()
+            services
+                .AddControllersWithViews()
+                .AddRazorRuntimeCompilation()
                 .AddFeatureFolders()
                 .AddAreaFeatureFolders(new OdeToCode.AddFeatureFolders.AreaFeatureFolderOptions()
                 {
-                    DefaultAreaViewLocation = "Areas/{2}/Features/{1}/{0}.cshtml"
+                    DefaultAreaViewLocation = "Areas/{2}/Features/{1}/{0}/{0}.cshtml"
                 });
 
             // Configure DI
             services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("MsSql")));
             services.AddScoped<UserService>();
             services.AddScoped<PageService>();
+            services.AddScoped<IHashProvider, HashProvider>();
+            services.AddScoped<SigninManager>();
 
             // Configure Authentication
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

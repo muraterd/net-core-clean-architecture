@@ -9,3 +9,14 @@
     border-radius: 100px;
     padding: 2px 10px;
 }
+
+.app-brand-register {
+    min-height: 75px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.app-brand-register span {
+    margin-left: inherit !important;
+}

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
 using WebCMS.Data;
-using WebCMS.Data.Entities;
+using Data.Entities;
 using WebCMS.Helpers;
 
 namespace WebCMS.Filters

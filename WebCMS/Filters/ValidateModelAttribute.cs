@@ -16,7 +16,6 @@ namespace WebCMS.Filters
             if (!context.ModelState.IsValid)
             {
                 context.Result = new ValidationFailedResult(context.ModelState);
-                //context.Result = new BadRequestObjectResult(context.ModelState);
             }
         }
     }

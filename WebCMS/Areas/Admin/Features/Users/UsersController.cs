@@ -1,12 +1,12 @@
 ﻿using System;
+using Application.Services.User;
+using Application.Services.User.Commands;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebCMS.Areas.Admin.Features.Users.Requests;
 using WebCMS.Controllers;
 using WebCMS.Data;
-using WebCMS.Services.User;
-using WebCMS.Services.User.Commands;
 
 namespace WebCMS.Areas.Admin.Features.Users
 {

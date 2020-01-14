@@ -3,10 +3,10 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebCMS.Filters;
 using WebCMS.Areas.Api.Features.User.Requests;
-using WebCMS.Services.User;
-using WebCMS.Services.User.Commands;
 using WebCMS.Controllers;
 using Microsoft.AspNetCore.Authorization;
+using Application.Services.User;
+using Application.Services.User.Commands;
 
 namespace WebCMS.Areas.Api.Features.User
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using WebCMS.Data;
-using WebCMS.Data.Entities;
+using Data.Entities;
 using WebCMS.Helpers;
 using WebCMS.Services.Page.Commands;
 

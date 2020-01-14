@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebCMS.Data;
-using WebCMS.Data.Entities;
+using Data.Entities;
 using WebCMS.Services.User.Commands;
 
 namespace WebCMS.Services.User

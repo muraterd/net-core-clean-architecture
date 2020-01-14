@@ -1,0 +1,44 @@
+﻿@model WebCMS.Areas.Admin.Features.Auth.RegisterViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Layouts/_LayoutLogin.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="row justify-content-center mt-5">
+    <div class="col-xl-5 col-lg-6 col-md-10">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="app-brand app-brand-register">
+                    <span class="brand-name">Yeni Kurulum</span>
+                </div>
+            </div>
+            <div class="card-body p-5">
+                <h4 class="text-dark">Yönetici Hesabı</h4>
+
+                <div class="mb-5 mt-2">
+                    <p>Tüm yetkilere sahip olacak bir kullanıcı belirleyin</p>
+                </div>
+
+                <form method="post">
+                    <div class="row">
+                        <div class="form-group col-md-12 mb-4">
+                            <input asp-for="Email" class="form-control input-lg" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-md-12 ">
+                            <input asp-for="Password" type="password" class="form-control input-lg" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Tamam</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

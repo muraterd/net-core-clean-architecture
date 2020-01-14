@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using WebCMS.Data.Entities;
+using Data.Entities;
 
 namespace WebCMS.Controllers
 {
