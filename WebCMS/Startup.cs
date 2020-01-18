@@ -1,9 +1,5 @@
 using System.IO;
-using Application.Auth;
-using Application.Interfaces.Providers;
-using Application.Services.User;
 using AutoMapper;
-using Infrastructure.Providers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +14,9 @@ using WebCMS.Areas.Api;
 using WebCMS.Areas.Web;
 using WebCMS.Data;
 using WebCMS.Services.Page;
+using Application;
+using Infrastructure;
+using Application.Services.User;
 
 namespace WebCMS
 {
@@ -46,8 +45,9 @@ namespace WebCMS
             services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("MsSql")));
             services.AddScoped<UserService>();
             services.AddScoped<PageService>();
-            services.AddScoped<IHashProvider, HashProvider>();
-            services.AddScoped<SigninManager>();
+
+            services.AddApplication();
+            services.AddInfrastructure();
 
             // Configure Authentication
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

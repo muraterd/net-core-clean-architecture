@@ -1,22 +1,34 @@
-﻿using System;
+﻿using Application.Interfaces.Providers;
+using Data.Entities;
+using Data.Models.Auth.Jwt;
 using JWT.Algorithms;
 using JWT.Builder;
-using Data.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace WebCMS.Helpers
+namespace Infrastructure.Providers
 {
-    public class JwtHelper
+    public class TokenProvider : ITokenProvider
     {
         private static readonly string Secret = "Çok acayip secret";
 
-        public static SignedTokenResult Sign(UserEntity user)
+        public JwtModel Decode(string token)
+        {
+            return new JwtBuilder()
+                    .WithSecret(Secret)
+                    .MustVerifySignature()
+                    .Decode<JwtModel>(token);
+        }
+
+        public SignedTokenResult Sign(UserEntity user)
         {
             var result = new SignedTokenResult();
 
             var expireDate = DateTime.Now.AddMonths(1);
 
             result.ExpiresIn = expireDate.ToUnixTimeStamp();
-            result.Token = new JwtBuilder()
+            result.AccessToken = new JwtBuilder()
                                 .WithAlgorithm(new HMACSHA256Algorithm())
                                 .ExpirationTime(expireDate)
                                 .WithVerifySignature(true)
@@ -25,25 +37,5 @@ namespace WebCMS.Helpers
                                 .Build();
             return result;
         }
-
-        public static JwtModel Decode(string token)
-        {
-            return new JwtBuilder()
-                    .WithSecret(Secret)
-                    .MustVerifySignature()
-                    .Decode<JwtModel>(token);
-        }
-    }
-
-    public class SignedTokenResult
-    {
-        public string Token { get; set; }
-        public int ExpiresIn { get; set; }
-    }
-
-    public class JwtModel
-    {
-        public int Exp { get; set; }
-        public int Id { get; set; }
     }
 }

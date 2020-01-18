@@ -1,89 +1,51 @@
-﻿using System;
-using System.Linq;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using WebCMS.Areas.Api.Features.Auth.Requests;
 using WebCMS.Areas.Api.Models;
 using WebCMS.Controllers;
-using WebCMS.Data;
-using Data.Entities;
 using WebCMS.Filters;
-using WebCMS.Helpers;
-using Application.Services.User;
 using System.Threading.Tasks;
 using Application.Interfaces.Providers;
-using Application.Auth;
-using Application.Exceptions;
+using MediatR;
+using Application.MediatR.Auth.Commands;
 
 namespace WebCMS.Areas.Api.Features.Auth
 {
     [Route("api/[controller]")]
     public class AuthController : BaseController
     {
-        private readonly SigninManager signinManager;
-        private readonly IHashProvider hashProvider;
-        private readonly UserService userService;
-        private readonly AppDbContext dbContext;
+        private readonly IMediator mediator;
+        private readonly ITokenProvider tokenProvider;
 
-        public AuthController(AppDbContext dbContext, UserService userService, SigninManager signinManager)
+        public AuthController(IMediator mediator, ITokenProvider tokenProvider)
         {
-            this.dbContext = dbContext;
-            this.userService = userService;
-            this.signinManager = signinManager;
+            this.mediator = mediator;
+            this.tokenProvider = tokenProvider;
         }
 
         [ValidateModel]
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] LoginCommand command)
         {
-            try
-            {
-                var user = await signinManager.Signin(request.Email, request.Password);
+            var user = await mediator.Send(command);
 
-                SignedTokenResult signedToken = JwtHelper.Sign(user);
+            var signedToken = tokenProvider.Sign(user);
 
-                UserModel userModel = Mapper.Map<UserModel>(user);
+            UserModel userModel = Mapper.Map<UserModel>(user);
 
-                return Ok(new { signedToken.Token, signedToken.ExpiresIn, User = userModel });
-            }
-            catch (AccessForbiddenException)
-            {
-                return StatusCode(StatusCodes.Status403Forbidden);
-            }
-            catch
-            {
-                return Unauthorized(new { message = "Kullanıcı adı veya şifre hatalı" });
-            }
+            return Ok(new { signedToken.AccessToken, signedToken.ExpiresIn, User = userModel });
         }
 
         [ValidateModel]
         [HttpPost("register")]
-        public IActionResult Register([FromBody] RegisterRequest request)
+        public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
-            UserEntity user = dbContext.Users.FirstOrDefault(w => w.Email == request.Email.Trim() &&
-            !w.IsDeleted);
+            var user = await mediator.Send(command);
 
-            if (user != null)
-            {
-                return BadRequest(new { message = "This email is already registered" });
-            }
-
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password.Trim());
-
-            user = new UserEntity()
-            {
-                Email = request.Email.Trim(),
-                Password = hashedPassword
-            };
-            dbContext.Users.Add(user);
-            dbContext.SaveChanges();
-
-            SignedTokenResult signedToken = JwtHelper.Sign(user);
+            var signedToken = tokenProvider.Sign(user);
 
             UserModel userModel = Mapper.Map<UserModel>(user);
 
-            return Ok(new { signedToken.Token, signedToken.ExpiresIn, User = userModel });
+            return Ok(new { signedToken.AccessToken, signedToken.ExpiresIn, User = userModel });
         }
     }
 }

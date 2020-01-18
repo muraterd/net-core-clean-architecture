@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
 using WebCMS.Data;
 using Data.Entities;
-using WebCMS.Helpers;
+using Application.Interfaces.Providers;
 
 namespace WebCMS.Filters
 {
@@ -20,11 +20,13 @@ namespace WebCMS.Filters
         {
             private readonly string _roles;
             private readonly AppDbContext dbContext;
+            private readonly ITokenProvider tokenProvider;
 
-            public ClaimRequirementFilter(AppDbContext dbContext, string Roles)
+            public ClaimRequirementFilter(AppDbContext dbContext, ITokenProvider tokenProvider, string Roles)
             {
                 _roles = Roles;
                 this.dbContext = dbContext;
+                this.tokenProvider = tokenProvider;
             }
 
             public void OnAuthorization(AuthorizationFilterContext context)
@@ -47,7 +49,7 @@ namespace WebCMS.Filters
 
                 try
                 {
-                    JwtModel jwt = JwtHelper.Decode(token);
+                    var jwt = tokenProvider.Decode(token);
                     UserEntity user = dbContext.Users.FirstOrDefault(w => w.Id == jwt.Id &&
                     w.IsActive &&
                     !w.IsDeleted);

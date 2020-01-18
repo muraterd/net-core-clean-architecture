@@ -5,6 +5,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Application.Exceptions;
 
 public class ApiErrorHandlerMiddleware
 {
@@ -31,15 +32,36 @@ public class ApiErrorHandlerMiddleware
 
     private Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        var code = HttpStatusCode.InternalServerError; // 500 if unexpected
+        var code = HttpStatusCode.InternalServerError;
+        var errorCode = "SERVER_ERROR";
 
-        //if (exception is MyNotFoundException) code = HttpStatusCode.NotFound;
-        //else if (ex is MyUnauthorizedException) code = HttpStatusCode.Unauthorized;
-        //else if (ex is MyException) code = HttpStatusCode.BadRequest;
+        if (exception is AccessDeniedException)
+        {
+            code = HttpStatusCode.Unauthorized;
+            errorCode = "ACCESS_DENIED";
 
-        _logger.LogError(exception, exception.Message);
+            _logger.LogInformation(exception, exception.Message);
+        }
+        else if (exception is AccessForbiddenException)
+        {
+            code = HttpStatusCode.Forbidden;
+            errorCode = "ACCESS_FORBIDDEN";
 
-        var result = JsonConvert.SerializeObject(new { Code = "SERVER_ERROR", Error = exception.Message });
+            _logger.LogInformation(exception, exception.Message);
+        }
+        else if (exception is DuplicateResultException)
+        {
+            code = HttpStatusCode.Conflict;
+            errorCode = "REQUEST_CONFLICT";
+
+            _logger.LogInformation(exception, exception.Message);
+        }
+        else
+        {
+            _logger.LogError(exception, exception.Message);
+        }
+
+        var result = JsonConvert.SerializeObject(new { errorCode });
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)code;
         return context.Response.WriteAsync(result);
