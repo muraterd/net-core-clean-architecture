@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WebCMS.Data;
 
-namespace Application.MediatR.Auth.Commands
+namespace Application.MediatR.Auth.Commands.Login
 {
     public class LoginCommand : IRequest<UserEntity>
     {

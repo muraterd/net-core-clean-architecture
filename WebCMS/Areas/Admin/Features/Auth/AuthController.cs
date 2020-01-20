@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Application.Exceptions;
+using Application.MediatR.Auth.Commands.CreateSuperAdmin;
+using Application.MediatR.Auth.Commands.Login;
+using Application.MediatR.Auth.Queries.IsSuperAdminExist;
 using Application.Services.User;
-using Application.Services.User.Commands;
-using AutoMapper;
-using Data.Enums;
+using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -18,21 +18,23 @@ namespace WebCMS.Areas.Admin.Features.Auth
     [Route("admin/[controller]")]
     public class AuthController : Controller
     {
+        private readonly IMediator mediator;
         private readonly UserService userService;
         private readonly AppDbContext dbContext;
 
-        public AuthController(AppDbContext dbContext, UserService userService)
+        public AuthController(AppDbContext dbContext, UserService userService, IMediator mediator)
         {
             this.dbContext = dbContext;
             this.userService = userService;
+            this.mediator = mediator;
         }
 
         [HttpGet("login")]
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
-            var isSuperAdminExist = dbContext.UserRoles.Any(w => w.Role == RoleType.SuperAdmin);
+            var isSuperAdminExist = await mediator.Send(new IsSuperAdminExistQuery());
 
-            if(!isSuperAdminExist)
+            if (!isSuperAdminExist)
             {
                 return RedirectToAction("Register");
             }
@@ -41,19 +43,21 @@ namespace WebCMS.Areas.Admin.Features.Auth
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginViewModel request)
+        public async Task<IActionResult> Login(LoginCommand command)
         {
             if (!ModelState.IsValid)
             {
-                return View(request);
+                return View(command);
             }
+
+            var user = await mediator.Send(command);
 
             //HttpContext.User
             var claims = new List<Claim>
             {
-                new Claim("Id", "3"),
-                new Claim(ClaimTypes.Name, "muraterd"),
-                new Claim("Email", "muraterd@fdsfds.com")
+                new Claim("Id", user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Email),
+                new Claim("Email", user.Email)
             };
 
             var identity = new ClaimsIdentity(claims, "Jwt");
@@ -61,10 +65,7 @@ namespace WebCMS.Areas.Admin.Features.Auth
 
             HttpContext.User = principal;
 
-            await HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            principal);
-
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
             return Redirect("/admin");
         }
@@ -83,17 +84,23 @@ namespace WebCMS.Areas.Admin.Features.Auth
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterViewModel request)
+        public async Task<IActionResult> Register(CreateSuperAdminCommand command)
         {
             if (!ModelState.IsValid)
             {
-                return View(request);
+                return View(command);
             }
 
-            var command = Mapper.Map<CreateUserCommand>(request);
-            await userService.CreateUser(command);
-
-            return View();
+            try
+            {
+                var user = await mediator.Send(command);
+                return RedirectToAction("Login");
+            }
+            catch(DuplicateResultException)
+            {
+                ViewBag.ErrorMessage = "Bu email ile bir kullanıcı zaten kayıtlı";
+                return View();
+            }
         }
     }
 }

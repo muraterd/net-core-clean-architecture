@@ -6,6 +6,8 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Application.Exceptions;
+using FluentValidation;
+using System.Linq;
 
 public class ApiErrorHandlerMiddleware
 {
@@ -34,36 +36,48 @@ public class ApiErrorHandlerMiddleware
     {
         var code = HttpStatusCode.InternalServerError;
         var errorCode = "SERVER_ERROR";
+        var result = "";
 
-        if (exception is AccessDeniedException)
+        switch (exception)
         {
-            code = HttpStatusCode.Unauthorized;
-            errorCode = "ACCESS_DENIED";
+            case AccessDeniedException ex:
+                code = HttpStatusCode.Unauthorized;
+                errorCode = "ACCESS_DENIED";
 
-            _logger.LogInformation(exception, exception.Message);
-        }
-        else if (exception is AccessForbiddenException)
-        {
-            code = HttpStatusCode.Forbidden;
-            errorCode = "ACCESS_FORBIDDEN";
+                _logger.LogInformation(exception, exception.Message);
+                break;
+            case AccessForbiddenException ex:
+                code = HttpStatusCode.Forbidden;
+                errorCode = "ACCESS_FORBIDDEN";
 
-            _logger.LogInformation(exception, exception.Message);
-        }
-        else if (exception is DuplicateResultException)
-        {
-            code = HttpStatusCode.Conflict;
-            errorCode = "REQUEST_CONFLICT";
+                _logger.LogInformation(exception, exception.Message);
+                break;
+            case DuplicateResultException ex:
+                code = HttpStatusCode.Conflict;
+                errorCode = "REQUEST_CONFLICT";
 
-            _logger.LogInformation(exception, exception.Message);
-        }
-        else
-        {
-            _logger.LogError(exception, exception.Message);
+                _logger.LogInformation(exception, exception.Message);
+                break;
+            case ValidationException ex:
+                code = HttpStatusCode.UnprocessableEntity;
+
+                var errors = ex.Errors.Select(error => new { Field = error.PropertyName, Message = error.ErrorMessage });
+                result = JsonConvert.SerializeObject(new { errorCode = "VALIDATION_FAILED", errors });
+
+                _logger.LogInformation(exception, exception.Message);
+                break;
+            default:
+                _logger.LogError(exception, exception.Message);
+                break;
         }
 
-        var result = JsonConvert.SerializeObject(new { errorCode });
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)code;
+
+        if (string.IsNullOrEmpty(result))
+        {
+            result = JsonConvert.SerializeObject(new { errorCode });
+        }
         return context.Response.WriteAsync(result);
     }
 }

@@ -17,6 +17,8 @@ using WebCMS.Services.Page;
 using Application;
 using Infrastructure;
 using Application.Services.User;
+using FluentValidation.AspNetCore;
+using Application.MediatR.Auth.Commands.CreateSuperAdmin;
 
 namespace WebCMS
 {
@@ -34,6 +36,7 @@ namespace WebCMS
         {
             services
                 .AddControllersWithViews()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateSuperAdminCommandValidator>())
                 .AddRazorRuntimeCompilation()
                 .AddFeatureFolders()
                 .AddAreaFeatureFolders(new OdeToCode.AddFeatureFolders.AreaFeatureFolderOptions()

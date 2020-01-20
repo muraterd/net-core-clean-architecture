@@ -18,8 +18,6 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.0" />
     <PackageReference Include="JWT" Version="5.3.1" />
-    <PackageReference Include="MediatR" Version="8.0.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
@@ -32,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Features\Users\Requests\" />
-    <Folder Include="Logs\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,31 +2,29 @@
 using Microsoft.AspNetCore.Mvc;
 using WebCMS.Areas.Api.Models;
 using WebCMS.Controllers;
-using WebCMS.Filters;
 using System.Threading.Tasks;
 using Application.Interfaces.Providers;
 using MediatR;
-using Application.MediatR.Auth.Commands;
+using Application.MediatR.Auth.Commands.Login;
+using Application.MediatR.Auth.Commands.Register;
 
 namespace WebCMS.Areas.Api.Features.Auth
 {
     [Route("api/[controller]")]
     public class AuthController : BaseController
     {
-        private readonly IMediator mediator;
         private readonly ITokenProvider tokenProvider;
 
-        public AuthController(IMediator mediator, ITokenProvider tokenProvider)
+        public AuthController(ITokenProvider tokenProvider)
         {
-            this.mediator = mediator;
             this.tokenProvider = tokenProvider;
         }
 
-        [ValidateModel]
+        //[ValidateModel]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginCommand command)
         {
-            var user = await mediator.Send(command);
+            var user = await Mediator.Send(command);
 
             var signedToken = tokenProvider.Sign(user);
 
@@ -35,11 +33,11 @@ namespace WebCMS.Areas.Api.Features.Auth
             return Ok(new { signedToken.AccessToken, signedToken.ExpiresIn, User = userModel });
         }
 
-        [ValidateModel]
+        //[ValidateModel]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
-            var user = await mediator.Send(command);
+            var user = await Mediator.Send(command);
 
             var signedToken = tokenProvider.Sign(user);
 
