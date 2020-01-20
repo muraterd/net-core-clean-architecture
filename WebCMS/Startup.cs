@@ -45,7 +45,8 @@ namespace WebCMS
                 });
 
             // Configure DI
-            services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("MsSql")));
+            // services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("MsSql")));
+            services.AddDbContext<AppDbContext>(opts => opts.UseInMemoryDatabase("WebCMS"));
             services.AddScoped<UserService>();
             services.AddScoped<PageService>();
 
@@ -65,7 +66,7 @@ namespace WebCMS
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseApiErrorHandlerMiddleware();
+            app.UseDeveloperExceptionPage();
 
             //if (env.IsDevelopment())
             //{

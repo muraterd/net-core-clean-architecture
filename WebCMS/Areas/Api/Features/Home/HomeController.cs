@@ -6,7 +6,7 @@ namespace WebCMS.Areas.Api.Features.Home
 {
     [JwtAuthorize]
     [Route("api/[controller]")]
-    public class HomeController : ControllerBase
+    public class HomeController : ApiBaseController
     {
         public HomeController()
         {

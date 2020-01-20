@@ -24,6 +24,16 @@
             </div>
             <div class="card-body p-5">
                 <h4 class="text-dark mb-5">Sign In</h4>
+
+                @{
+                    if (ViewBag.ErrorMessage != null)
+                    {
+                        <div class="alert alert-danger alert-highlighted" role="alert">
+                            @ViewBag.ErrorMessage
+                        </div>
+                    }
+                }
+                
                 <form method="post">
                     <div class="row">
                         <div class="form-group col-md-12 mb-4">

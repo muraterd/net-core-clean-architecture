@@ -14,7 +14,6 @@ namespace WebCMS.Areas.Admin
         public static void ConfigureAutoMapper(IMapperConfigurationExpression o)
         {
             o.CreateMap<UpdateUserRequest, UpdateUserCommand>();
-            o.CreateMap<RegisterViewModel, CreateUserCommand>();
 
             o.CreateMap<BaseEntity, BaseModel>();
 

@@ -32,6 +32,8 @@ namespace WebCMS.Areas.Admin.Features.Auth
         [HttpGet("login")]
         public async Task<IActionResult> Login()
         {
+            throw new System.Exception("Hede");
+
             var isSuperAdminExist = await mediator.Send(new IsSuperAdminExistQuery());
 
             if (!isSuperAdminExist)
@@ -50,24 +52,20 @@ namespace WebCMS.Areas.Admin.Features.Auth
                 return View(command);
             }
 
-            var user = await mediator.Send(command);
-
-            //HttpContext.User
-            var claims = new List<Claim>
+            try
             {
-                new Claim("Id", user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Email),
-                new Claim("Email", user.Email)
-            };
+                var user = await mediator.Send(command);
 
-            var identity = new ClaimsIdentity(claims, "Jwt");
-            var principal = new ClaimsPrincipal(identity);
+                await user.LoginWithCookie(HttpContext);
 
-            HttpContext.User = principal;
+                return Redirect("/admin");
+            }
+            catch (AccessDeniedException)
+            {
+                ViewBag.ErrorMessage = "Kullanıcı adı veya şifre hatalı";
+            }
 
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-            return Redirect("/admin");
+            return View();
         }
 
         [HttpGet("logout")]
@@ -96,7 +94,7 @@ namespace WebCMS.Areas.Admin.Features.Auth
                 var user = await mediator.Send(command);
                 return RedirectToAction("Login");
             }
-            catch(DuplicateResultException)
+            catch (DuplicateResultException)
             {
                 ViewBag.ErrorMessage = "Bu email ile bir kullanıcı zaten kayıtlı";
                 return View();

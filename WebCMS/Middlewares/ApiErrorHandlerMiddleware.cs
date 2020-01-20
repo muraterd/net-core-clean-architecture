@@ -32,53 +32,62 @@ public class ApiErrorHandlerMiddleware
         }
     }
 
-    private Task HandleExceptionAsync(HttpContext context, Exception exception)
+    private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        var code = HttpStatusCode.InternalServerError;
-        var errorCode = "SERVER_ERROR";
-        var result = "";
+        // var contentType = context.Request.Headers["Content-Type"].ToString() ?? "";
 
-        switch (exception)
-        {
-            case AccessDeniedException ex:
-                code = HttpStatusCode.Unauthorized;
-                errorCode = "ACCESS_DENIED";
+        // if (contentType != "application/json")
+        // {
+        //     _logger.LogError(exception, exception.Message);
+        //     await _next(context);
+        //     return;
+        // }
 
-                _logger.LogInformation(exception, exception.Message);
-                break;
-            case AccessForbiddenException ex:
-                code = HttpStatusCode.Forbidden;
-                errorCode = "ACCESS_FORBIDDEN";
+        // var code = HttpStatusCode.InternalServerError;
+        // var errorCode = "SERVER_ERROR";
+        // var result = "";
 
-                _logger.LogInformation(exception, exception.Message);
-                break;
-            case DuplicateResultException ex:
-                code = HttpStatusCode.Conflict;
-                errorCode = "REQUEST_CONFLICT";
+        // switch (exception)
+        // {
+        //     case AccessDeniedException ex:
+        //         code = HttpStatusCode.Unauthorized;
+        //         errorCode = "ACCESS_DENIED";
 
-                _logger.LogInformation(exception, exception.Message);
-                break;
-            case ValidationException ex:
-                code = HttpStatusCode.UnprocessableEntity;
+        //         _logger.LogInformation(exception, exception.Message);
+        //         break;
+        //     case AccessForbiddenException ex:
+        //         code = HttpStatusCode.Forbidden;
+        //         errorCode = "ACCESS_FORBIDDEN";
 
-                var errors = ex.Errors.Select(error => new { Field = error.PropertyName, Message = error.ErrorMessage });
-                result = JsonConvert.SerializeObject(new { errorCode = "VALIDATION_FAILED", errors });
+        //         _logger.LogInformation(exception, exception.Message);
+        //         break;
+        //     case DuplicateResultException ex:
+        //         code = HttpStatusCode.Conflict;
+        //         errorCode = "REQUEST_CONFLICT";
 
-                _logger.LogInformation(exception, exception.Message);
-                break;
-            default:
-                _logger.LogError(exception, exception.Message);
-                break;
-        }
+        //         _logger.LogInformation(exception, exception.Message);
+        //         break;
+        //     case ValidationException ex:
+        //         code = HttpStatusCode.UnprocessableEntity;
 
-        context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)code;
+        //         var errors = ex.Errors.Select(error => new { Field = error.PropertyName, Message = error.ErrorMessage });
+        //         result = JsonConvert.SerializeObject(new { errorCode = "VALIDATION_FAILED", errors });
 
-        if (string.IsNullOrEmpty(result))
-        {
-            result = JsonConvert.SerializeObject(new { errorCode });
-        }
-        return context.Response.WriteAsync(result);
+        //         _logger.LogInformation(exception, exception.Message);
+        //         break;
+        //     default:
+        //         _logger.LogError(exception, exception.Message);
+        //         break;
+        // }
+
+        // context.Response.ContentType = "application/json";
+        // context.Response.StatusCode = (int)code;
+
+        // if (string.IsNullOrEmpty(result))
+        // {
+        //     result = JsonConvert.SerializeObject(new { errorCode });
+        // }
+        // await context.Response.WriteAsync(result);
     }
 }
 public static class ErrorHandlerMiddlewareExtentions

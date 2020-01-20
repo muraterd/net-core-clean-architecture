@@ -11,7 +11,7 @@ namespace WebCMS.Controllers
 
         public BaseController()
         {
-            
+
         }
     }
 }

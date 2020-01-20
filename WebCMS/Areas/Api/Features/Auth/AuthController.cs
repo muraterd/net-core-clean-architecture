@@ -1,17 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebCMS.Areas.Api.Models;
-using WebCMS.Controllers;
 using System.Threading.Tasks;
 using Application.Interfaces.Providers;
-using MediatR;
 using Application.MediatR.Auth.Commands.Login;
 using Application.MediatR.Auth.Commands.Register;
 
 namespace WebCMS.Areas.Api.Features.Auth
 {
     [Route("api/[controller]")]
-    public class AuthController : BaseController
+    public class AuthController : ApiBaseController
     {
         private readonly ITokenProvider tokenProvider;
 
