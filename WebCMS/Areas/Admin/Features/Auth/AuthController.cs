@@ -32,8 +32,6 @@ namespace WebCMS.Areas.Admin.Features.Auth
         [HttpGet("login")]
         public async Task<IActionResult> Login()
         {
-            throw new System.Exception("Hede");
-
             var isSuperAdminExist = await mediator.Send(new IsSuperAdminExistQuery());
 
             if (!isSuperAdminExist)
