@@ -19,6 +19,7 @@ using Infrastructure;
 using Application.Services.User;
 using FluentValidation.AspNetCore;
 using Application.MediatR.Auth.Commands.CreateSuperAdmin;
+using Data;
 
 namespace WebCMS
 {
@@ -34,6 +35,9 @@ namespace WebCMS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var appConfig = new AppConfig();
+            Configuration.Bind("AppConfig", appConfig);
+
             services
                 .AddControllersWithViews()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateSuperAdminCommandValidator>())
@@ -45,8 +49,10 @@ namespace WebCMS
                 });
 
             // Configure DI
+            services.AddHttpContextAccessor();
             // services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("MsSql")));
             services.AddDbContext<AppDbContext>(opts => opts.UseInMemoryDatabase("WebCMS"));
+            services.AddSingleton(appConfig);
             services.AddScoped<UserService>();
             services.AddScoped<PageService>();
 
