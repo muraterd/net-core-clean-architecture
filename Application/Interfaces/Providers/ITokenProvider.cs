@@ -9,7 +9,5 @@ namespace Application.Interfaces.Providers
     public interface ITokenProvider
     {
         SignedTokenResult Sign(UserEntity user);
-
-        JwtModel Decode(string token);
     }
 }

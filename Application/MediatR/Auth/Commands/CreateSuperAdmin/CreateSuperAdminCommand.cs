@@ -51,7 +51,7 @@ namespace Application.MediatR.Auth.Commands.CreateSuperAdmin
                 {
                     new UserRoleEntity()
                     {
-                        Role = RoleType.SuperAdmin
+                        Role = RoleType.SuperAdmin.ToString()
                     }
                 }
             };

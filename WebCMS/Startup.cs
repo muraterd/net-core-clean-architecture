@@ -20,6 +20,9 @@ using Application.Services.User;
 using FluentValidation.AspNetCore;
 using Application.MediatR.Auth.Commands.CreateSuperAdmin;
 using Data;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System;
 
 namespace WebCMS
 {
@@ -50,7 +53,7 @@ namespace WebCMS
 
             // Configure DI
             services.AddHttpContextAccessor();
-            // services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("MsSql")));
+            //services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("MsSql")));
             services.AddDbContext<AppDbContext>(opts => opts.UseInMemoryDatabase("WebCMS"));
             services.AddSingleton(appConfig);
             services.AddScoped<UserService>();
@@ -61,11 +64,24 @@ namespace WebCMS
 
             // Configure Authentication
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+                .AddCookie(
                 options =>
                 {
                     options.LoginPath = new PathString("/admin/auth/login");
                     options.AccessDeniedPath = new PathString("/admin/auth/denied");
+                    options.Cookie.Name = "WebCMS.Cookie";
+                })
+                .AddJwtBearer("JWT", options =>
+                {
+                    options.RequireHttpsMetadata = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = false,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(appConfig.Auth.JwtSignKey)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ClockSkew = TimeSpan.Zero
+                    };
                 });
         }
 

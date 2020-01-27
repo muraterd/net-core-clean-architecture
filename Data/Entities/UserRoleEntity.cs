@@ -8,6 +8,6 @@ namespace Data.Entities
     public class UserRoleEntity
     {
         public long Id { get; set; }
-        public RoleType Role { get; set; }
+        public string Role { get; set; }
     }
 }

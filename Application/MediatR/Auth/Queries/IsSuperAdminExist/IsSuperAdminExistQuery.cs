@@ -21,7 +21,7 @@ namespace Application.MediatR.Auth.Queries.IsSuperAdminExist
 
         public async Task<bool> Handle(IsSuperAdminExistQuery query, CancellationToken cancellationToken)
         {
-            return await dbContext.UserRoles.AnyAsync(w => w.Role == RoleType.SuperAdmin);
+            return await dbContext.UserRoles.AnyAsync(w => w.Role == RoleType.SuperAdmin.ToString());
         }
     }
 }

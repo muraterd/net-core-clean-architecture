@@ -2,10 +2,12 @@
 using Data;
 using Data.Entities;
 using Data.Models.Auth.Jwt;
-using JWT.Algorithms;
-using JWT.Builder;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
 using System.Text;
 
 namespace Infrastructure.Providers
@@ -13,6 +15,8 @@ namespace Infrastructure.Providers
     public class TokenProvider : ITokenProvider
     {
         private readonly AppConfig appConfig;
+        private readonly JwtSecurityTokenHandler tokenHandler;
+
         private string jwtSignKey
         {
             get
@@ -36,28 +40,37 @@ namespace Infrastructure.Providers
         public TokenProvider(AppConfig appConfig)
         {
             this.appConfig = appConfig;
-        }
-
-        public JwtModel Decode(string token)
-        {
-            return new JwtBuilder()
-                    .WithSecret(jwtSignKey)
-                    .MustVerifySignature()
-                    .Decode<JwtModel>(token);
+            tokenHandler = new JwtSecurityTokenHandler();
         }
 
         public SignedTokenResult Sign(UserEntity user)
         {
-            var result = new SignedTokenResult();
+            var claims = new List<Claim>
+            {
+                new Claim("Id", user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.FullName),
+                new Claim("Email", user.Email),
+            };
 
-            result.ExpiresIn = expireDate.ToUnixTimeStamp();
-            result.AccessToken = new JwtBuilder()
-                                .WithAlgorithm(new HMACSHA256Algorithm())
-                                .ExpirationTime(expireDate)
-                                .WithVerifySignature(true)
-                                .WithSecret(jwtSignKey)
-                                .AddClaim("id", user.Id)
-                                .Build();
+            claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Role.ToString())).ToList());
+
+            var identity = new ClaimsIdentity(claims, "Jwt Identity");
+
+            var key = Encoding.ASCII.GetBytes(jwtSignKey);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = identity,
+                Expires = expireDate,
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+
+            var result = new SignedTokenResult()
+            {
+                ExpiresIn = expireDate.ToUnixTimeStamp(),
+                AccessToken = tokenHandler.WriteToken(securityToken)
+            };
+
             return result;
         }
     }
