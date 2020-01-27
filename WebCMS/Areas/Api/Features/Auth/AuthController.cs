@@ -18,7 +18,6 @@ namespace WebCMS.Areas.Api.Features.Auth
             this.tokenProvider = tokenProvider;
         }
 
-        //[ValidateModel]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginCommand command)
         {
@@ -31,7 +30,6 @@ namespace WebCMS.Areas.Api.Features.Auth
             return Ok(new { signedToken.AccessToken, signedToken.ExpiresIn, User = userModel });
         }
 
-        //[ValidateModel]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
