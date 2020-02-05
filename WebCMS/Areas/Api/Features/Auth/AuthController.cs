@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.Interfaces.Providers;
 using Application.MediatR.Auth.Commands.Login;
 using Application.MediatR.Auth.Commands.Register;
+using System;
 
 namespace WebCMS.Areas.Api.Features.Auth
 {
