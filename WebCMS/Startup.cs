@@ -23,6 +23,9 @@ using Data;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace WebCMS
 {
@@ -83,6 +86,8 @@ namespace WebCMS
                         ClockSkew = TimeSpan.Zero
                     };
                 });
+
+            services.AddLocalization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -116,6 +121,18 @@ namespace WebCMS
                 FileProvider = new PhysicalFileProvider(
                 Path.Combine(Directory.GetCurrentDirectory(), "Areas", "Web", "wwwroot")),
                 RequestPath = "/public"
+            });
+
+            IList<CultureInfo> supportedCultures = new List<CultureInfo>
+            {
+                new CultureInfo("tr-TR"),
+                new CultureInfo("en-US"),
+            };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("tr-TR"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
             });
 
             app.UseRouting();

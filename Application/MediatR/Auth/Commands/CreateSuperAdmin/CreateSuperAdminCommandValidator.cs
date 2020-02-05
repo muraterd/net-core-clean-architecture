@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application.Resources;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,10 +10,11 @@ namespace Application.MediatR.Auth.Commands.CreateSuperAdmin
     {
         public CreateSuperAdminCommandValidator()
         {
-            RuleFor(x => x.Email).NotNull().EmailAddress();
-            RuleFor(x => x.Password).StrongPassword(10);
+            RuleFor(x => x.Email)
+                .NotNull().WithMessage(ValidationErrorMessages.EmailEmpty)
+                .EmailAddress().WithMessage(ValidationErrorMessages.EmailNotValid);
+
+            RuleFor(x => x.Password).StrongPassword();
         }
     }
-
-    
 }
