@@ -1,8 +1,5 @@
 ﻿using Application.Resources;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Application.MediatR.Auth.Commands.CreateSuperAdmin
 {
@@ -14,7 +11,12 @@ namespace Application.MediatR.Auth.Commands.CreateSuperAdmin
                 .NotNull().WithMessage(ValidationErrorMessages.EmailEmpty)
                 .EmailAddress().WithMessage(ValidationErrorMessages.EmailNotValid);
 
-            RuleFor(x => x.Password).StrongPassword();
+            //RuleFor(x => x.Password).StrongPassword();
+            RuleFor(x => x.Password).StrongPassword(o =>
+            {
+                o.MinimumLength = 8; 
+                o.RequireSpecialCharacter = false;
+            });
         }
     }
 }

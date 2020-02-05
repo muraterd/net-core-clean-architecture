@@ -97,7 +97,7 @@ namespace Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Şifre uzunluğu yetersiz.
+        ///   Looks up a localized string similar to Şifre en az {0} karakter uzunluğunda olmalı..
         /// </summary>
         public static string PasswordLength {
             get {
