@@ -16,8 +16,8 @@ namespace Application.MediatR.Auth.Commands.CreateSuperAdmin
     public class CreateSuperAdminCommand : IRequest<UserEntity>
     {
         public string Email { get; set; }
-
         public string Password { get; set; }
+        public string PasswordConfirm { get; set; }
     }
 
     public class CreateSuperAdminCommandHandler : IRequestHandler<CreateSuperAdminCommand, UserEntity>

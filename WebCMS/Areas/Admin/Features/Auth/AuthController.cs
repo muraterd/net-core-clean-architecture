@@ -39,11 +39,11 @@ namespace WebCMS.Areas.Admin.Features.Auth
                 return RedirectToAction("Register");
             }
 
-            return View();
+            return View(new AdminLoginCommand());
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginCommand command)
+        public async Task<IActionResult> Login(AdminLoginCommand command)
         {
             if (!ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace WebCMS.Areas.Admin.Features.Auth
             {
                 var user = await mediator.Send(command);
 
-                await user.LoginWithCookie(HttpContext);
+                await user.LoginWithCookie(HttpContext, command.RememberMe);
 
                 return Redirect("/admin");
             }
@@ -90,7 +90,9 @@ namespace WebCMS.Areas.Admin.Features.Auth
             try
             {
                 var user = await mediator.Send(command);
-                return RedirectToAction("Login");
+                await user.LoginWithCookie(HttpContext);
+
+                return Redirect("/admin");
             }
             catch (DuplicateResultException)
             {

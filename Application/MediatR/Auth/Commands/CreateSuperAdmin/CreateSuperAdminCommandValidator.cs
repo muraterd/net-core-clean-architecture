@@ -11,7 +11,6 @@ namespace Application.MediatR.Auth.Commands.CreateSuperAdmin
                 .NotNull().WithMessage(ValidationErrorMessages.EmailEmpty)
                 .EmailAddress().WithMessage(ValidationErrorMessages.EmailNotValid);
 
-            //RuleFor(x => x.Password).StrongPassword();
             RuleFor(x => x.Password).StrongPassword(o =>
             {
                 o.MinimumLength = 4; 
@@ -20,6 +19,9 @@ namespace Application.MediatR.Auth.Commands.CreateSuperAdmin
                 o.RequireLowerCase = false;
                 o.RequireDigit = false;
             });
+
+            RuleFor(x => x.PasswordConfirm)
+                .Equal(x => x.Password).WithMessage(ValidationErrorMessages.PasswordConfirmNotMatched);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace WebCMS.Areas.Api.Features.Auth
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginCommand command)
+        public async Task<IActionResult> Login([FromBody] AdminLoginCommand command)
         {
             var user = await Mediator.Send(command);
 

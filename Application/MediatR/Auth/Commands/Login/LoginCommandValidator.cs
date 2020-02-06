@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.MediatR.Auth.Commands.Login
 {
-    public class LoginCommandValidator : AbstractValidator<LoginCommand>
+    public class LoginCommandValidator : AbstractValidator<AdminLoginCommand>
     {
         public LoginCommandValidator()
         {

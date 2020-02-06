@@ -56,8 +56,8 @@ namespace WebCMS
 
             // Configure DI
             services.AddHttpContextAccessor();
-            //services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("MsSql")));
-            services.AddDbContext<AppDbContext>(opts => opts.UseInMemoryDatabase("WebCMS"));
+            services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("MsSql")));
+            //services.AddDbContext<AppDbContext>(opts => opts.UseInMemoryDatabase("WebCMS"));
             services.AddSingleton(appConfig);
             services.AddScoped<UserService>();
             services.AddScoped<PageService>();

@@ -123,6 +123,9 @@
   <data name="EmailNotValid" xml:space="preserve">
     <value>Lütfen geçerli bir eposta adresi girin</value>
   </data>
+  <data name="PasswordConfirmNotMatched" xml:space="preserve">
+    <value>Şifre ve şifre tekrarı aynı olmalı</value>
+  </data>
   <data name="PasswordDigit" xml:space="preserve">
     <value>Şifre en az bir sayı içermeli</value>
   </data>
@@ -130,7 +133,7 @@
     <value>Şifre boş olamaz</value>
   </data>
   <data name="PasswordLength" xml:space="preserve">
-    <value>Şifre en az {0} karakter uzunluğunda olmalı.</value>
+    <value>Şifre en az {0} karakter uzunluğunda olmalı</value>
   </data>
   <data name="PasswordLowercaseLetter" xml:space="preserve">
     <value>Şifre en az bir küçük harf içermeli</value>

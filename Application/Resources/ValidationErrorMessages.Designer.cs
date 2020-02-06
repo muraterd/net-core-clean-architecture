@@ -79,6 +79,15 @@ namespace Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Şifre ve şifre tekrarı aynı olmalı.
+        /// </summary>
+        public static string PasswordConfirmNotMatched {
+            get {
+                return ResourceManager.GetString("PasswordConfirmNotMatched", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Şifre en az bir sayı içermeli.
         /// </summary>
         public static string PasswordDigit {
@@ -97,7 +106,7 @@ namespace Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Şifre en az {0} karakter uzunluğunda olmalı..
+        ///   Looks up a localized string similar to Şifre en az {0} karakter uzunluğunda olmalı.
         /// </summary>
         public static string PasswordLength {
             get {

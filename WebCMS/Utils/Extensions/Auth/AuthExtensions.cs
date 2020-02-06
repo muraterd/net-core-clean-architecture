@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 
 public static class AuthExtensions
 {
-    public static async Task LoginWithCookie(this UserEntity user, Microsoft.AspNetCore.Http.HttpContext context)
+    public static async Task LoginWithCookie(this UserEntity user, HttpContext context, bool rememberMe = false)
     {
         var claims = new List<Claim>
             {
@@ -17,11 +18,15 @@ public static class AuthExtensions
                 new Claim("Email", user.Email)
             };
 
-        var identity = new ClaimsIdentity(claims, "Jwt");
+        var identity = new ClaimsIdentity(claims, "Cookie Identity");
         var principal = new ClaimsPrincipal(identity);
 
         context.User = principal;
 
-        await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties
+        {
+            IsPersistent = rememberMe,
+            ExpiresUtc = DateTime.UtcNow.AddDays(1)
+        }); ;
     }
 }
