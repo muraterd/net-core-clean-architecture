@@ -18,7 +18,6 @@ using Application;
 using Infrastructure;
 using Application.Services.User;
 using FluentValidation.AspNetCore;
-using Application.MediatR.Auth.Commands.CreateSuperAdmin;
 using Data;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -26,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Application.MediatR.Admin.Auth.Commands.CreateSuperAdmin;
 
 namespace WebCMS
 {

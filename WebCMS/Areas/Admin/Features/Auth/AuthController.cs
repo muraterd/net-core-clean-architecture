@@ -2,9 +2,9 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.Exceptions;
-using Application.MediatR.Auth.Commands.CreateSuperAdmin;
-using Application.MediatR.Auth.Commands.Login;
-using Application.MediatR.Auth.Queries.IsSuperAdminExist;
+using Application.MediatR.Admin.Auth.Commands.CreateSuperAdmin;
+using Application.MediatR.Admin.Auth.Commands.Login;
+using Application.MediatR.Admin.Auth.Queries.IsSuperAdminExist;
 using Application.Services.User;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
@@ -39,11 +39,11 @@ namespace WebCMS.Areas.Admin.Features.Auth
                 return RedirectToAction("Register");
             }
 
-            return View(new AdminLoginCommand());
+            return View(new LoginCommand());
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(AdminLoginCommand command)
+        public async Task<IActionResult> Login(LoginCommand command)
         {
             if (!ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace WebCMS.Areas.Admin.Features.Auth
                 ViewBag.ErrorMessage = "Kullanıcı adı veya şifre hatalı";
             }
 
-            return View();
+            return View(new LoginCommand());
         }
 
         [HttpGet("logout")]

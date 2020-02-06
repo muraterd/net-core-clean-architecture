@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Application.MediatR.Auth.Commands.Register
+namespace Application.MediatR.Api.Auth.Commands.Register
 {
 	public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 	{

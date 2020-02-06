@@ -1,7 +1,7 @@
 ﻿using Application.Resources;
 using FluentValidation;
 
-namespace Application.MediatR.Auth.Commands.CreateSuperAdmin
+namespace Application.MediatR.Admin.Auth.Commands.CreateSuperAdmin
 {
     public class CreateSuperAdminCommandValidator : AbstractValidator<CreateSuperAdminCommand>
     {

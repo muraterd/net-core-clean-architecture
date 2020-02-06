@@ -10,17 +10,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using WebCMS.Data;
 
-namespace Application.MediatR.Auth.Commands.Login
+namespace Application.MediatR.Api.Auth.Commands.Login
 {
-    public class AdminLoginCommand : IRequest<UserEntity>
+    public class LoginCommand : IRequest<UserEntity>
     {
         public string Email { get; set; }
         public string Password { get; set; }
-
-        public bool RememberMe = true;
     }
 
-    public class LoginCommandHandler : IRequestHandler<AdminLoginCommand, UserEntity>
+    public class LoginCommandHandler : IRequestHandler<LoginCommand, UserEntity>
     {
         private readonly AppDbContext dbContext;
         private readonly IHashProvider hashProvider;
@@ -31,7 +29,7 @@ namespace Application.MediatR.Auth.Commands.Login
             this.hashProvider = hashProvider;
         }
 
-        public async Task<UserEntity> Handle(AdminLoginCommand request, CancellationToken cancellationToken)
+        public async Task<UserEntity> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             request.Email = request.Email.Trim();
             request.Password = request.Password.Trim();

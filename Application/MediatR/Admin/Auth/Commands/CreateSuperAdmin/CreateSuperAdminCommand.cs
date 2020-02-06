@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WebCMS.Data;
 
-namespace Application.MediatR.Auth.Commands.CreateSuperAdmin
+namespace Application.MediatR.Admin.Auth.Commands.CreateSuperAdmin
 {
     public class CreateSuperAdminCommand : IRequest<UserEntity>
     {

@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WebCMS.Data;
 
-namespace Application.MediatR.Auth.Commands.Register
+namespace Application.MediatR.Api.Auth.Commands.Register
 {
     public class RegisterCommand : IRequest<UserEntity>
     {

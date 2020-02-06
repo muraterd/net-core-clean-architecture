@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WebCMS.Data;
 
-namespace Application.MediatR.Auth.Queries.IsSuperAdminExist
+namespace Application.MediatR.Admin.Auth.Queries.IsSuperAdminExist
 {
     public class IsSuperAdminExistQuery : IRequest<bool>
     {}

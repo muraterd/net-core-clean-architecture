@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using WebCMS.Areas.Api.Models;
 using System.Threading.Tasks;
 using Application.Interfaces.Providers;
-using Application.MediatR.Auth.Commands.Login;
-using Application.MediatR.Auth.Commands.Register;
-using System;
+using Application.MediatR.Api.Auth.Commands.Login;
+using Application.MediatR.Api.Auth.Commands.Register;
 
 namespace WebCMS.Areas.Api.Features.Auth
 {
@@ -20,7 +19,7 @@ namespace WebCMS.Areas.Api.Features.Auth
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] AdminLoginCommand command)
+        public async Task<IActionResult> Login([FromBody] LoginCommand command)
         {
             var user = await Mediator.Send(command);
 
