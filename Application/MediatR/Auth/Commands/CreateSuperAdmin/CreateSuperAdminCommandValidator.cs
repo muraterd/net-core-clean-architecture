@@ -14,8 +14,11 @@ namespace Application.MediatR.Auth.Commands.CreateSuperAdmin
             //RuleFor(x => x.Password).StrongPassword();
             RuleFor(x => x.Password).StrongPassword(o =>
             {
-                o.MinimumLength = 8; 
+                o.MinimumLength = 4; 
                 o.RequireSpecialCharacter = false;
+                o.RequireUpperCase = false;
+                o.RequireLowerCase = false;
+                o.RequireDigit = false;
             });
         }
     }

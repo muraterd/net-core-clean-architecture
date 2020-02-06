@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@addTagHelper *, WebCMS
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8" />
@@ -41,22 +44,23 @@
     <script src="~/admin/public/plugins/nprogress/nprogress.js"></script>
 
     <script src="~/admin/public/plugins/tinymce/tinymce.min.js"></script>
-    <script>tinymce.init({ selector: 'textarea', height:500 });</script>
+    <script>tinymce.init({ selector: 'textarea', height: 500 });</script>
 </head>
 
 
 <body class="sidebar-fixed sidebar-dark header-light header-fixed" id="body">
-    <script>NProgress.configure({ showSpinner: false });
+    <script>
+        NProgress.configure({ showSpinner: false });
         NProgress.start();</script>
 
     <div class="mobile-sticky-body-overlay"></div>
 
     <div class="wrapper">
 
-        @await Component.InvokeAsync("LeftMenu")
-        
+        <vc:left-menu />
+
         <div class="page-wrapper">
-            @await Html.PartialAsync("../Partials/MainHeader.cshtml")
+            <partial name="~/Areas/Admin/Views/Partials/MainHeader.cshtml" />
 
             @RenderBody()
 
@@ -69,7 +73,8 @@
                            target="_blank">Abdus</a>.
                     </p>
                 </div>
-                <script>var d = new Date();
+                <script>
+                    var d = new Date();
                     var year = d.getFullYear();
                     document.getElementById("copy-year").innerHTML = year;</script>
             </footer>
@@ -97,6 +102,6 @@
     <script src="~/admin/public/js/date-range.js"></script>
     <script src="~/admin/public/js/map.js"></script>
     <script src="~/admin/public/js/custom.js"></script>
-    
+
 </body>
 </html>
