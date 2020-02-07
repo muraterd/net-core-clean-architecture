@@ -1,16 +1,18 @@
-﻿<!-- User Account -->
+﻿@inject Data.CurrentUser currentUser
+
+<!-- User Account -->
 <li class="dropdown user-menu">
     <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
         <img src="/admin/public/img/user-avatar-default.png" class="user-image" alt="user_avatar" />
-        <span class="d-none d-lg-inline-block">Murat Erdoğan </span>
+        <span class="d-none d-lg-inline-block">@currentUser.FullName</span>
     </button>
     <ul class="dropdown-menu dropdown-menu-right">
         <!-- User image -->
         <li class="dropdown-header">
             <img src="/admin/public/img/user-avatar-default.png" class="img-circle" alt="user_avatar" />
             <div class="d-inline-block">
-                Murat Erdoğan
-                <small class="pt-1">user@mail.com</small>
+                @currentUser.FullName
+                <small class="pt-1">@currentUser.Email</small>
             </div>
         </li>
 
