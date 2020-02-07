@@ -16,3 +16,12 @@
         color: #fe5461 !important;
         text-decoration: underline;
     }
+
+ul.pagination .page-item.dots {
+    position: relative;
+    display: block;
+    padding: 1rem 1.25rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #4c84ff;
+}

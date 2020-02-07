@@ -35,6 +35,7 @@ namespace Application.MediatR.Admin.User.Queries.GetAllUsers
 
             return new PageResult<UserEntity>() {
                 List = await usersQuery.Paginate(query.Page, query.PageSize).ToListAsync(),
+                CurrentPage = query.Page,
                 TotalPageCount = (await usersQuery.CountAsync()).CalculateTotalPageCount(query.PageSize)
             };
         }
