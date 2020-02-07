@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Application.MediatR.Admin.User.Queries.GetAllUsers;
 using Application.Services.User;
 using Application.Services.User.Commands;
 using AutoMapper;
@@ -16,9 +18,9 @@ namespace WebCMS.Areas.Admin.Features.Users
     public class UsersController : BaseController
     {
         [HttpGet]
-        public IActionResult List()
+        public async Task<IActionResult> List([FromQuery] GetAllUsersQuery query)
         {
-            return View();
+            return View(await Mediator.Send(query));
         }
     }
 }
