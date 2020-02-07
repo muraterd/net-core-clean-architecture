@@ -25,3 +25,21 @@ ul.pagination .page-item.dots {
     line-height: 1.25;
     color: #4c84ff;
 }
+
+nav.pagination {
+    justify-content: center
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+}
+
+    .card-content .empty-state {
+        display: flex;
+        flex: 1;
+        font-size: 20px;
+        align-items: center;
+        justify-content: center;
+    }
