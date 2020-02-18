@@ -5,34 +5,23 @@ using Application.Exceptions;
 using Application.MediatR.Admin.Auth.Commands.CreateSuperAdmin;
 using Application.MediatR.Admin.Auth.Commands.Login;
 using Application.MediatR.Admin.Auth.Queries.IsSuperAdminExist;
-using Application.Services.User;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using WebCMS.Areas.Admin.Features.Base;
 using WebCMS.Data;
 
 namespace WebCMS.Areas.Admin.Features.Auth
 {
     [Area("Admin")]
     [Route("admin/[controller]")]
-    public class AuthController : Controller
+    public class AuthController : BaseController
     {
-        private readonly IMediator mediator;
-        private readonly UserService userService;
-        private readonly AppDbContext dbContext;
-
-        public AuthController(AppDbContext dbContext, UserService userService, IMediator mediator)
-        {
-            this.dbContext = dbContext;
-            this.userService = userService;
-            this.mediator = mediator;
-        }
-
         [HttpGet("login")]
         public async Task<IActionResult> Login()
         {
-            var isSuperAdminExist = await mediator.Send(new IsSuperAdminExistQuery());
+            var isSuperAdminExist = await Mediator.Send(new IsSuperAdminExistQuery());
 
             if (!isSuperAdminExist)
             {
@@ -52,7 +41,7 @@ namespace WebCMS.Areas.Admin.Features.Auth
 
             try
             {
-                var user = await mediator.Send(command);
+                var user = await Mediator.Send(command);
 
                 await user.LoginWithCookie(HttpContext, command.RememberMe);
 
@@ -89,7 +78,7 @@ namespace WebCMS.Areas.Admin.Features.Auth
 
             try
             {
-                var user = await mediator.Send(command);
+                var user = await Mediator.Send(command);
                 await user.LoginWithCookie(HttpContext);
 
                 return Redirect("/admin");

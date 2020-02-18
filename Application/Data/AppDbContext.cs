@@ -15,6 +15,7 @@ namespace WebCMS.Data
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<UserRoleEntity> UserRoles { get; set; }
         public DbSet<PageEntity> Pages { get; set; }
+        public DbSet<PhotoEntity> Photos { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

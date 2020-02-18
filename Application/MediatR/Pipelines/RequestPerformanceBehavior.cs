@@ -36,7 +36,7 @@ public class RequestPerformanceBehavior<TRequest, TResponse> : IPipelineBehavior
             //var userId
             //var username
 
-            logger.LogWarning("Long Running Request {Name} ({ElapsedMilliseconds}) {@Request}", requestName, elapsedMilliseconds, request);
+            logger.LogWarning("Long Running Request {Name} (elapsed {ElapsedMilliseconds} ms) {@Request}", requestName, elapsedMilliseconds, request);
             //logger.LogInformation("Request {Name} {@userId} {@userName} {@Request}", requestName, userId);
         }
 

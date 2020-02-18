@@ -1,5 +1,6 @@
 ﻿using Data;
 using Data.Entities;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -32,13 +33,18 @@ public class CurrentUserMiddleware
             var userId = Convert.ToInt64(((ClaimsIdentity)identity).Claims
                 .FirstOrDefault(c => c.Type == "Id").Value ?? "0");
 
-            var dbUser = await dbContext.Users.FirstOrDefaultAsync(w => w.Id == userId);
+            var dbUser = await dbContext.Users.Include(w=>w.Photos).FirstOrDefaultAsync(w => w.Id == userId);
+            var profilePhoto = dbUser.Photos.FirstOrDefault(w => w.IsProfilePhoto);
 
-            user.Id = dbUser.Id;
-            user.FirstName = dbUser.FirstName;
-            user.LastName = dbUser.LastName;
-            user.Email = dbUser.Email;
-            user.Roles = dbUser.Roles.Select(c => c.Role).ToList();
+            if (dbUser != null)
+            {
+                user.Id = dbUser.Id;
+                user.FirstName = dbUser.FirstName;
+                user.LastName = dbUser.LastName;
+                user.Email = dbUser.Email;
+                user.ProfilePhoto = profilePhoto != null ? profilePhoto.FileName : "";
+                user.Roles = dbUser.Roles.Select(c => c.Role).ToList();
+            }
         }
 
         await next(httpContext);

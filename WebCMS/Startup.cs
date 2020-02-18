@@ -16,7 +16,6 @@ using WebCMS.Data;
 using WebCMS.Services.Page;
 using Application;
 using Infrastructure;
-using Application.Services.User;
 using FluentValidation.AspNetCore;
 using Data;
 using Microsoft.IdentityModel.Tokens;
@@ -26,6 +25,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Application.MediatR.Admin.Auth.Commands.CreateSuperAdmin;
+using WebCMS.Areas.Admin.Features.Users.Profile;
+using Data.Helpers;
 
 namespace WebCMS
 {
@@ -46,7 +47,11 @@ namespace WebCMS
 
             services
                 .AddControllersWithViews()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateSuperAdminCommandValidator>())
+                .AddFluentValidation(fv =>
+                {
+                    fv.RegisterValidatorsFromAssemblyContaining<CreateSuperAdminCommandValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<ProfileViewModelValidator>();
+                })
                 .AddRazorRuntimeCompilation()
                 .AddFeatureFolders()
                 .AddAreaFeatureFolders(new OdeToCode.AddFeatureFolders.AreaFeatureFolderOptions()
@@ -60,11 +65,10 @@ namespace WebCMS
             services.AddSingleton(appConfig);
             services.AddScoped<CurrentUser>();
             services.AddHttpContextAccessor();
-            services.AddScoped<UserService>();
             services.AddScoped<PageService>();
 
             services.AddApplication();
-            services.AddInfrastructure();
+            services.AddInfrastructure(Configuration);
 
             // Configure Authentication
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -123,6 +127,12 @@ namespace WebCMS
                 Path.Combine(Directory.GetCurrentDirectory(), "Areas", "Web", "wwwroot")),
                 RequestPath = "/public"
             });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
+                RequestPath = "/uploads"
+            });
 
             IList<CultureInfo> supportedCultures = new List<CultureInfo>
             {
@@ -170,6 +180,18 @@ namespace WebCMS
                     Log.Information("Database created!");
                 else
                     Log.Information("Database is already created");
+
+
+                // EnsureAllPathsCreated
+                try
+                {
+                    Log.Information("Checking if upload paths exists");
+                    FileUploadHelper.EnsureAllUploadPathsCreated();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Upload paths could not be created!");
+                }
             }
 
             Log.Information($"Running in environment: {env.EnvironmentName}");

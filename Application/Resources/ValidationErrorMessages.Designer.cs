@@ -79,6 +79,15 @@ namespace Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yüklemeye çalıştığınız dosya png veya jpg formatında olmalıdır..
+        /// </summary>
+        public static string InvalidImage {
+            get {
+                return ResourceManager.GetString("InvalidImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Şifre ve şifre tekrarı aynı olmalı.
         /// </summary>
         public static string PasswordConfirmNotMatched {

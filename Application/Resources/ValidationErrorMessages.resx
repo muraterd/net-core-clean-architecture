@@ -123,6 +123,9 @@
   <data name="EmailNotValid" xml:space="preserve">
     <value>Lütfen geçerli bir eposta adresi girin</value>
   </data>
+  <data name="InvalidImage" xml:space="preserve">
+    <value>Yüklemeye çalıştığınız dosya png veya jpg formatında olmalıdır.</value>
+  </data>
   <data name="PasswordConfirmNotMatched" xml:space="preserve">
     <value>Şifre ve şifre tekrarı aynı olmalı</value>
   </data>

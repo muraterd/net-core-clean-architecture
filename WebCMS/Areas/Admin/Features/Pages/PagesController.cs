@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebCMS.Areas.Admin.Features.Base;
 using WebCMS.Areas.Admin.Features.Users.Requests;
 using WebCMS.Areas.Admin.Models.Page;
 using WebCMS.Controllers;
@@ -13,10 +14,9 @@ using WebCMS.Services.Page.Commands;
 
 namespace WebCMS.Areas.Admin.Features.Users
 {
-    [Authorize]
     [Area("Admin")]
     [Route("admin/[controller]")]
-    public class PagesController : Controller
+    public class PagesController : AuthorizedController
     {
         private readonly PageService pageService;
 

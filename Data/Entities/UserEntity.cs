@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Data.Entities
 {
@@ -10,11 +11,17 @@ namespace Data.Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public List<UserRoleEntity> Roles { get; set; } = new List<UserRoleEntity>();
+        public List<PhotoEntity> Photos { get; set; } = new List<PhotoEntity>();
 
         // Getters
         public string FullName
         {
             get { return $"{FirstName ?? String.Empty} {LastName ?? String.Empty}".Trim(); }
+        }
+
+        public PhotoEntity ProfilePhoto
+        {
+            get { return Photos.FirstOrDefault(w => w.IsProfilePhoto); }
         }
     }
 }
