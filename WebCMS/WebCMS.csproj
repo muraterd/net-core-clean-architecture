@@ -6,13 +6,9 @@
 
   <ItemGroup>
     <Compile Remove="Data\**" />
-    <Compile Remove="Services\User\**" />
     <Content Remove="Data\**" />
-    <Content Remove="Services\User\**" />
     <EmbeddedResource Remove="Data\**" />
-    <EmbeddedResource Remove="Services\User\**" />
     <None Remove="Data\**" />
-    <None Remove="Services\User\**" />
   </ItemGroup>
 
   <ItemGroup>

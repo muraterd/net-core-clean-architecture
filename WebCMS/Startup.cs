@@ -13,7 +13,6 @@ using WebCMS.Areas.Admin;
 using WebCMS.Areas.Api;
 using WebCMS.Areas.Web;
 using WebCMS.Data;
-using WebCMS.Services.Page;
 using Application;
 using Infrastructure;
 using FluentValidation.AspNetCore;
@@ -65,7 +64,6 @@ namespace WebCMS
             services.AddSingleton(appConfig);
             services.AddScoped<CurrentUser>();
             services.AddHttpContextAccessor();
-            services.AddScoped<PageService>();
 
             services.AddApplication();
             services.AddInfrastructure(Configuration);

@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Application.MediatR.Admin.Page.Commands;
 using Application.MediatR.Admin.Page.Queries;
 using AutoMapper;
 using Data.Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebCMS.Areas.Admin.Features.Base;
 using WebCMS.Areas.Admin.Features.Pages.Create;
 using WebCMS.Areas.Admin.Features.Pages.Update;
-using WebCMS.Areas.Admin.Features.Users.Requests;
 using WebCMS.Areas.Admin.Models.Base;
-using WebCMS.Areas.Admin.Models.Page;
-using WebCMS.Controllers;
-using WebCMS.Data;
-using WebCMS.Services.Page;
-using WebCMS.Services.Page.Commands;
 
 namespace WebCMS.Areas.Admin.Features.Users
 {
@@ -24,13 +15,6 @@ namespace WebCMS.Areas.Admin.Features.Users
     [Route("admin/[controller]")]
     public class PagesController : AuthorizedController
     {
-        private readonly PageService pageService;
-
-        public PagesController(PageService pageService)
-        {
-            this.pageService = pageService;
-        }
-
         [HttpGet]
         public async Task<IActionResult> List([FromQuery] GetAllPagesQuery query)
         {
@@ -88,9 +72,10 @@ namespace WebCMS.Areas.Admin.Features.Users
         }
 
         [HttpGet("delete/{id}")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
-            pageService.DeletePage(id);
+            await Mediator.Send(new DeletePageCommand() { Id = id });
+
             return RedirectToAction("List");
         }
     }
