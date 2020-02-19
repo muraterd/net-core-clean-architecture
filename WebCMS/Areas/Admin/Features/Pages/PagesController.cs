@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.MediatR.Admin.Page.Commands;
 using Application.MediatR.Admin.Page.Queries;
+using Application.MediatR.Common.Page.Queries;
 using AutoMapper;
 using Data.Entities;
 using Microsoft.AspNetCore.Mvc;

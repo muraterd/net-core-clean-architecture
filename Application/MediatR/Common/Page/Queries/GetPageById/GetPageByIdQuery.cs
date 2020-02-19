@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WebCMS.Data;
 
-namespace Application.MediatR.Admin.Page.Queries
+namespace Application.MediatR.Common.Page.Queries
 {
     public class GetPageByIdQuery : IRequest<PageEntity>
     {
