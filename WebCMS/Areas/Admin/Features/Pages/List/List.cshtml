@@ -1,4 +1,6 @@
-@model List<WebCMS.Areas.Admin.Models.Page.BasePageModel>
+@using WebCMS.Areas.Admin.Models.Base
+
+@model ListPageViewModel<PageEntity>
 @{
     ViewData["Title"] = "Users";
     Layout = "~/Areas/Admin/Views/Layouts/_LayoutMain.cshtml";
@@ -10,6 +12,8 @@
         <div class="breadcrumb-wrapper">
             <h1>Sayfalar</h1>
         </div>
+
+        <error-message model="@Model" />
 
         <div class="row">
             <div class="col">
@@ -31,7 +35,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model)
+                                    @foreach (var item in Model.List)
                                     {
                                         <tr>
                                             <td scope="row">@item.Id</td>
@@ -44,7 +48,7 @@
                                 </tbody>
                             </table>
 
-                            @if (Model.Count == 0)
+                            @if (Model.List.Count == 0)
                             {
                                 <div class="empty-state">
                                     Herhangi bir sonuç bulunamadı
@@ -52,7 +56,7 @@
                             }
                         </div>
 
-                        <pagination current-page="5" total-page-count="30" max-page-count="3" />
+                        <pagination current-page="@Model.CurrentPage" total-page-count="@Model.TotalPageCount" />
                     </div>
                 </div>
             </div>
@@ -60,3 +64,7 @@
 
     </div>
 </div>
+
+@section Scripts {
+    <toastr model="@Model" />
+}

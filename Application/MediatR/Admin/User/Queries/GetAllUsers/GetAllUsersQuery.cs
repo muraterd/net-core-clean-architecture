@@ -1,4 +1,5 @@
-﻿using Application.Utils.Extensions.EFCoreExtensions;
+﻿using Application.MediatR.Base.Queries;
+using Application.Utils.Extensions.EFCoreExtensions;
 using Data.Entities;
 using Data.Models.Common;
 using MediatR;
@@ -10,10 +11,9 @@ using WebCMS.Data;
 
 namespace Application.MediatR.Admin.User.Queries.GetUserById
 {
-    public class GetAllUsersQuery : IRequest<PageResult<UserEntity>>
+    public class GetAllUsersQuery : PageQuery<PageResult<UserEntity>>
     {
-        public int Page { get; set; } = 1;
-        public int PageSize { get; set; } = 10;
+
     }
 
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, PageResult<UserEntity>>

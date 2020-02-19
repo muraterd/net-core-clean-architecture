@@ -79,6 +79,15 @@ namespace Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bu alan boş olamaz.
+        /// </summary>
+        public static string GenericRequiredMessage {
+            get {
+                return ResourceManager.GetString("GenericRequiredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yüklemeye çalıştığınız dosya png veya jpg formatında olmalıdır..
         /// </summary>
         public static string InvalidImage {

@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Application.MediatR.Admin.Page.Queries;
 using AutoMapper;
+using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebCMS.Areas.Admin.Features.Base;
+using WebCMS.Areas.Admin.Features.Pages.Update;
 using WebCMS.Areas.Admin.Features.Users.Requests;
+using WebCMS.Areas.Admin.Models.Base;
 using WebCMS.Areas.Admin.Models.Page;
 using WebCMS.Controllers;
 using WebCMS.Data;
@@ -26,40 +31,33 @@ namespace WebCMS.Areas.Admin.Features.Users
         }
 
         [HttpGet]
-        public IActionResult List()
+        public async Task<IActionResult> List([FromQuery] GetAllPagesQuery query)
         {
-            var pages = pageService.GetPages(1, 10).ToList();
+            var result = await Mediator.Send(query);
+            var viewModel = Mapper.Map<ListPageViewModel<PageEntity>>(result);
 
-            var model = Mapper.Map<List<BasePageModel>>(pages);
-
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Update(long id)
+        public async Task<IActionResult> Update(long id)
         {
-            var page = pageService.GetPage(id);
-            if(page == null)
-            {
-                return NotFound();
-            }
-            var model = Mapper.Map<PageModel>(page);
+            PageEntity page = await Mediator.Send(new GetPageByIdQuery() { Id = id });
 
-            return View(model);
+            return View(page.ToUpdatePageViewModel());
         }
 
         [HttpPost("{id}")]
-        public IActionResult Update(long id, PageModel model)
+        public async Task<IActionResult> Update(UpdatePageViewModel viewModel)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(viewModel);
             }
 
-            var command = Mapper.Map<UpdatePageCommand>(model);
-            pageService.UpdatePage(id, command);
+            await Mediator.Send(viewModel.ToUpdatePageCommand());
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpGet("new")]

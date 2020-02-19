@@ -47,17 +47,19 @@ namespace Application.MediatR.Admin.User.Commands
 
                 var user = await dbContext.Users.Include(w => w.Photos).FirstOrDefaultAsync(w => w.Id == command.UserId);
 
-                user.Photos.Add(new PhotoEntity()
+                var newPhoto = new PhotoEntity()
                 {
                     FileName = filename,
                     Width = image.Width,
                     Height = image.Height,
                     IsProfilePhoto = true
-                });
+                };
+                user.Photos.Add(newPhoto);
 
                 await dbContext.SaveChangesAsync();
+
+                return newPhoto;
             }
-            return null;
         }
     }
 }

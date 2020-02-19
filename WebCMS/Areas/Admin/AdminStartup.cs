@@ -7,6 +7,8 @@ using WebCMS.Areas.Admin.Features.Users.Profile;
 using Data.Models.Common;
 using WebCMS.Areas.Admin.Models.Base;
 using System.Reflection;
+using WebCMS.Areas.Admin.Features.Pages.Update;
+using Application.MediatR.Admin.Page.Commands;
 
 namespace WebCMS.Areas.Admin
 {
@@ -22,6 +24,8 @@ namespace WebCMS.Areas.Admin
             // Entity <-> Command <-> Query <-> ViewModel Mappings
             o.CreateMap<UserEntity, ProfileViewModel>();
             o.CreateMap<ProfileViewModel, UpdateUserCommand>();
+            o.CreateMap<PageEntity, UpdatePageViewModel>();
+            o.CreateMap<UpdatePageViewModel, UpdatePageCommand>();
 
 
             o.CreateMap(typeof(PageResult<>), typeof(ListPageViewModel<>), MemberList.Source);
