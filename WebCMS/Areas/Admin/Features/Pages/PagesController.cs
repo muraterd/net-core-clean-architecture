@@ -8,6 +8,7 @@ using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebCMS.Areas.Admin.Features.Base;
+using WebCMS.Areas.Admin.Features.Pages.Create;
 using WebCMS.Areas.Admin.Features.Pages.Update;
 using WebCMS.Areas.Admin.Features.Users.Requests;
 using WebCMS.Areas.Admin.Models.Base;
@@ -36,6 +37,11 @@ namespace WebCMS.Areas.Admin.Features.Users
             var result = await Mediator.Send(query);
             var viewModel = Mapper.Map<ListPageViewModel<PageEntity>>(result);
 
+            if (TempData["SuccessMessage"] != null)
+            {
+                viewModel.SuccessMessage = TempData["SuccessMessage"].ToString();
+            }
+
             return View(viewModel);
         }
 
@@ -63,19 +69,20 @@ namespace WebCMS.Areas.Admin.Features.Users
         [HttpGet("new")]
         public IActionResult Create()
         {
-            return View(new PageModel());
+            return View(new CreatePageViewModel());
         }
 
         [HttpPost("new")]
-        public IActionResult Create(PageModel model)
+        public async Task<IActionResult> Create(CreatePageViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(viewModel);
             }
 
-            var command = Mapper.Map<CreatePageCommand>(model);
-            pageService.CreatePage(command);
+            await Mediator.Send(viewModel.ToCreatePageCommand());
+
+            TempData["SuccessMessage"] = $"{viewModel.Title} sayfası başarıyla oluşturuldu";
 
             return RedirectToAction("List");
         }

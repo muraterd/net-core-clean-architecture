@@ -1,10 +1,8 @@
 @model WebCMS.Areas.Admin.Features.Pages.Update.UpdatePageViewModel
 @{
-    ViewData["Title"] = "Users";
+    ViewData["Title"] = "Pages";
     Layout = "~/Areas/Admin/Views/Layouts/_LayoutMain.cshtml";
 }
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@addTagHelper *, AuthoringTagHelpers
 
 <div class="content-wrapper">
     <div class="content">
@@ -12,6 +10,8 @@
         <div class="breadcrumb-wrapper">
             <h1>Sayfalar</h1>
         </div>
+
+        <error-message model="@Model" />
 
         <div class="row">
             <div class="col">
@@ -46,3 +46,7 @@
 
     </div>
 </div>
+
+@section Scripts {
+    <toastr model="@Model" />
+}
