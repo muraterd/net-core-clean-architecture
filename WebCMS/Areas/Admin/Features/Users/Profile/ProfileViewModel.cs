@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebCMS.Areas.Admin.Models.Base;
 
 namespace WebCMS.Areas.Admin.Features.Users.Profile
 {
-    public class ProfileViewModel
+    public class ProfileViewModel : PageViewModel
     {
         public long Id { get; set; }
         public string FirstName { get; set; }

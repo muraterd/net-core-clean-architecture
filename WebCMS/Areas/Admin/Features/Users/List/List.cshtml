@@ -1,6 +1,7 @@
 ﻿@using Data.Helpers
+@using WebCMS.Areas.Admin.Models.Base
 
-@model PageResult<UserEntity>
+@model ListPageViewModel<UserEntity>
 @{
     ViewData["Title"] = "Users";
     Layout = "~/Areas/Admin/Views/Layouts/_LayoutMain.cshtml";
@@ -12,6 +13,9 @@
         <div class="breadcrumb-wrapper">
             <h1>Kullanıcılar</h1>
         </div>
+
+        <error-message model="@Model" />
+        @ViewBag.Hede
 
         <div class="row">
             <div class="col">
@@ -36,32 +40,32 @@
                                 <tbody>
                                     @foreach (var item in Model.List)
                                     {
-                                    <tr>
-                                        <td scope="row"><a href="/admin/users/@item.Id/profile/"><profile-photo file-name="@item.ProfilePhoto.FileName" path="@FileUploadSize.SMALL" css-class="user-image" /></a></td>
-                                        <td><a href="/admin/users/@item.Id/profile/">@item.FullName</a></td>
-                                        <td><a href="/admin/users/@item.Id/profile/">@item.Email</a></td>
-                                        <td>@item.Roles.FirstOrDefault().Role</td>
-                                        <td>@item.CreatedAt.ToString("dd MMMM yyyy")</td>
-                                        <td class="text-right">
-                                            <div class="dropdown show d-inline-block widget-dropdown">
-                                                <a class="dropdown-toggle icon-burger-mini" href="" role="button" id="dropdown-recent-order1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static"></a>
-                                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-recent-order1">
-                                                    <li class="dropdown-item">
-                                                        <a href="#">
-                                                            <i class="mdi mdi-eye"></i>
-                                                            Detaylar
-                                                        </a>
-                                                    </li>
-                                                    <li class="dropdown-item danger">
-                                                        <a href="#">
-                                                            <i class="mdi mdi-delete"></i>
-                                                            Sil
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td scope="row"><a href="/admin/users/@item.Id/profile/"><profile-photo file-name="@item.ProfilePhoto.FileName" path="@FileUploadSize.SMALL" css-class="user-image" /></a></td>
+                                            <td><a href="/admin/users/@item.Id/profile/">@item.FullName</a></td>
+                                            <td><a href="/admin/users/@item.Id/profile/">@item.Email</a></td>
+                                            <td>@item.Roles.FirstOrDefault().Role</td>
+                                            <td>@item.CreatedAt.ToString("dd MMMM yyyy")</td>
+                                            <td class="text-right">
+                                                <div class="dropdown show d-inline-block widget-dropdown">
+                                                    <a class="dropdown-toggle icon-burger-mini" href="" role="button" id="dropdown-recent-order1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static"></a>
+                                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-recent-order1">
+                                                        <li class="dropdown-item">
+                                                            <a href="#">
+                                                                <i class="mdi mdi-eye"></i>
+                                                                Detaylar
+                                                            </a>
+                                                        </li>
+                                                        <li class="dropdown-item danger">
+                                                            <a href="#">
+                                                                <i class="mdi mdi-delete"></i>
+                                                                Sil
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
@@ -82,3 +86,8 @@
 
     </div>
 </div>
+
+
+@section Scripts {
+    <toastr model="@Model" />
+}

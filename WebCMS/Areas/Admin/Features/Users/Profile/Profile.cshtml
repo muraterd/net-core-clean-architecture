@@ -8,6 +8,8 @@
 
 <div class="content-wrapper">
     <div class="content">
+        
+        <error-message model="@Model" />
 
         <div class="bg-white border rounded user-profile">
             <div class="row no-gutters">
@@ -16,7 +18,6 @@
                         <div class="card text-center widget-profile px-0 border-0">
                             <div class="card-img mx-auto">
                                 <profile-photo file-name="@Model.ProfilePhoto.FileName" path="@FileUploadSize.SMALL" css-class="profile-photo" />
-                                @*<img src="/admin/public/img/user-avatar-default.png" alt="user image" width="100">*@
                             </div>
                             <div class="card-body">
                                 <h4 class="py-2 text-dark">@Model.FullName</h4>

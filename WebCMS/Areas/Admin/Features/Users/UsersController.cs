@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Application.MediatR.Admin.User.Commands;
 using Application.MediatR.Admin.User.Queries.GetUserById;
+using AutoMapper;
 using Data.Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebCMS.Areas.Admin.Features.Base;
 using WebCMS.Areas.Admin.Features.Users.Profile;
+using WebCMS.Areas.Admin.Models.Base;
 
 namespace WebCMS.Areas.Admin.Features.Users
 {
@@ -16,7 +17,10 @@ namespace WebCMS.Areas.Admin.Features.Users
         [HttpGet]
         public async Task<IActionResult> List([FromQuery] GetAllUsersQuery query)
         {
-            return View(await Mediator.Send(query));
+            var result = await Mediator.Send(query);
+            var viewModel = Mapper.Map<ListPageViewModel<UserEntity>>(result);
+
+            return View(viewModel);
         }
 
         [HttpGet("{id}/profile")]
