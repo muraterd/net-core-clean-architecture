@@ -1,5 +1,5 @@
 ﻿using System;
-namespace WebCMS.Areas.Api.Models
+namespace UI.Areas.Api.Models
 {
     public class BaseUserModel
     {

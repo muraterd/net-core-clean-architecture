@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 
-namespace WebCMS.Filters
+namespace UI.Filters
 {
     public class ValidateModelAttribute : ActionFilterAttribute
     {

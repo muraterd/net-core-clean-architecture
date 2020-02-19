@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using WebCMS.Areas.Api.Models;
+using UI.Areas.Api.Models;
 using System.Threading.Tasks;
 using Application.Interfaces.Providers;
 using Application.MediatR.Api.Auth.Commands.Login;
 using Application.MediatR.Api.Auth.Commands.Register;
 
-namespace WebCMS.Areas.Api.Features.Auth
+namespace UI.Areas.Api.Features.Auth
 {
     [Route("api/[controller]")]
     public class AuthController : ApiBaseController

@@ -4,11 +4,11 @@ using Application.MediatR.Admin.User.Queries.GetUserById;
 using AutoMapper;
 using Data.Entities;
 using Microsoft.AspNetCore.Mvc;
-using WebCMS.Areas.Admin.Features.Base;
-using WebCMS.Areas.Admin.Features.Users.Profile;
-using WebCMS.Areas.Admin.Models.Base;
+using UI.Areas.Admin.Features.Base;
+using UI.Areas.Admin.Features.Users.Profile;
+using UI.Areas.Admin.Models.Base;
 
-namespace WebCMS.Areas.Admin.Features.Users
+namespace UI.Areas.Admin.Features.Users
 {
     [Area("Admin")]
     [Route("admin/[controller]")]

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebCMS.Areas.Admin.Models.Toastr
+namespace UI.Areas.Admin.Models.Toastr
 {
     public class ToastrModel
     {

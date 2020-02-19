@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebCMS.Areas.Admin.Features.Users.Requests
+namespace UI.Areas.Admin.Features.Users.Requests
 {
     public class UpdateUserRequest
     {

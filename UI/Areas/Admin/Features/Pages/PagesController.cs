@@ -5,12 +5,12 @@ using Application.MediatR.Common.Page.Queries;
 using AutoMapper;
 using Data.Entities;
 using Microsoft.AspNetCore.Mvc;
-using WebCMS.Areas.Admin.Features.Base;
-using WebCMS.Areas.Admin.Features.Pages.Create;
-using WebCMS.Areas.Admin.Features.Pages.Update;
-using WebCMS.Areas.Admin.Models.Base;
+using UI.Areas.Admin.Features.Base;
+using UI.Areas.Admin.Features.Pages.Create;
+using UI.Areas.Admin.Features.Pages.Update;
+using UI.Areas.Admin.Models.Base;
 
-namespace WebCMS.Areas.Admin.Features.Users
+namespace UI.Areas.Admin.Features.Users
 {
     [Area("Admin")]
     [Route("admin/[controller]")]

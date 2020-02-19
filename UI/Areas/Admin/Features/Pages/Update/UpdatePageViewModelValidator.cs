@@ -2,7 +2,7 @@
 using FluentValidation;
 using System.Collections.Generic;
 
-namespace WebCMS.Areas.Admin.Features.Pages.Update
+namespace UI.Areas.Admin.Features.Pages.Update
 {
     public class UpdatePageViewModelValidator : AbstractValidator<UpdatePageViewModel>
     {

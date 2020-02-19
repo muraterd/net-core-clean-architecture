@@ -2,7 +2,7 @@
 using FluentValidation;
 using System.Collections.Generic;
 
-namespace WebCMS.Areas.Admin.Features.Users.Profile
+namespace UI.Areas.Admin.Features.Users.Profile
 {
     public class ProfileViewModelValidator : AbstractValidator<ProfileViewModel>
     {

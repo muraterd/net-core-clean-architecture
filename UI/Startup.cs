@@ -9,10 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Serilog;
-using WebCMS.Areas.Admin;
-using WebCMS.Areas.Api;
-using WebCMS.Areas.Web;
-using WebCMS.Data;
+using UI.Areas.Admin;
+using UI.Areas.Api;
+using UI.Areas.Web;
+using UI.Data;
 using Application;
 using Infrastructure;
 using FluentValidation.AspNetCore;
@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Application.MediatR.Admin.Auth.Commands.CreateSuperAdmin;
-using WebCMS.Areas.Admin.Features.Users.Profile;
+using UI.Areas.Admin.Features.Users.Profile;
 using Data.Helpers;
 
-namespace WebCMS
+namespace UI
 {
     public class Startup
     {
@@ -60,7 +60,7 @@ namespace WebCMS
 
             // Configure DI
             services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("MsSql")));
-            //services.AddDbContext<AppDbContext>(opts => opts.UseInMemoryDatabase("WebCMS"));
+            //services.AddDbContext<AppDbContext>(opts => opts.UseInMemoryDatabase("UI.));
             services.AddSingleton(appConfig);
             services.AddScoped<CurrentUser>();
             services.AddHttpContextAccessor();
@@ -75,7 +75,7 @@ namespace WebCMS
                 {
                     options.LoginPath = new PathString("/admin/auth/login");
                     options.AccessDeniedPath = new PathString("/admin/auth/denied");
-                    options.Cookie.Name = "WebCMS.Cookie";
+                    options.Cookie.Name = "CleanArchitecture.Cookie";
                 })
                 .AddJwtBearer("JWT", options =>
                 {

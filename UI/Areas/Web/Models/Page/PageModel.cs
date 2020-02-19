@@ -1,5 +1,5 @@
 ﻿using System;
-namespace WebCMS.Areas.Web.Models.Page
+namespace UI.Areas.Web.Models.Page
 {
     public class PageModel : BaseModel
     {

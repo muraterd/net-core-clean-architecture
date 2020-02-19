@@ -1,10 +1,10 @@
 ﻿using System;
 using AutoMapper;
-using WebCMS.Areas.Web.Models;
-using WebCMS.Areas.Web.Models.Page;
+using UI.Areas.Web.Models;
+using UI.Areas.Web.Models.Page;
 using Data.Entities;
 
-namespace WebCMS.Areas.Web
+namespace UI.Areas.Web
 {
     public class WebStartup
     {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WebCMS.Data;
+using UI.Data;
 
 namespace Application.MediatR.Admin.Auth.Commands.Login
 {

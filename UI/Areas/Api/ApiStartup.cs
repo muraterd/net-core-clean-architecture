@@ -1,9 +1,9 @@
 ﻿using System;
 using AutoMapper;
-using WebCMS.Areas.Api.Models;
+using UI.Areas.Api.Models;
 using Data.Entities;
 
-namespace WebCMS.Areas.Api
+namespace UI.Areas.Api
 {
     public class ApiStartup
     {

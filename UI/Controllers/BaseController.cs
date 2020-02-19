@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebCMS.Controllers
+namespace UI.Controllers
 {
     public class BaseController : ControllerBase
     {

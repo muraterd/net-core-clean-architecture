@@ -3,7 +3,7 @@ using Application.MediatR.Admin.User.Commands.UpdateUser;
 using AutoMapper;
 using Data.Entities;
 
-namespace WebCMS.Areas.Admin.Features.Pages.Update
+namespace UI.Areas.Admin.Features.Pages.Update
 {
     public static class UpdatePageViewModelMappers
     {

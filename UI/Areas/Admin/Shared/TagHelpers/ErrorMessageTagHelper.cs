@@ -1,6 +1,6 @@
 ﻿using HtmlTags;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using WebCMS.Areas.Admin.Models.Base;
+using UI.Areas.Admin.Models.Base;
 
 public class ErrorMessageTagHelper : TagHelper
 {

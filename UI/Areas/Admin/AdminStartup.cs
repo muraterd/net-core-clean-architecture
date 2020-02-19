@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using Data.Entities;
 using Application.MediatR.Admin.User.Commands.UpdateUser;
-using WebCMS.Areas.Admin.Features.Users.Profile;
+using UI.Areas.Admin.Features.Users.Profile;
 using Data.Models.Common;
-using WebCMS.Areas.Admin.Models.Base;
-using WebCMS.Areas.Admin.Features.Pages.Update;
+using UI.Areas.Admin.Models.Base;
+using UI.Areas.Admin.Features.Pages.Update;
 using Application.MediatR.Admin.Page.Commands;
-using WebCMS.Areas.Admin.Features.Pages.Create;
+using UI.Areas.Admin.Features.Pages.Create;
 
-namespace WebCMS.Areas.Admin
+namespace UI.Areas.Admin
 {
     public class AdminStartup
     {

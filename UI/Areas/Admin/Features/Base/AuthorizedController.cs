@@ -8,9 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebCMS.Areas.Admin.Filters;
+using UI.Areas.Admin.Filters;
 
-namespace WebCMS.Areas.Admin.Features.Base
+namespace UI.Areas.Admin.Features.Base
 {
     [Authorize]
     [ValidateCookie]

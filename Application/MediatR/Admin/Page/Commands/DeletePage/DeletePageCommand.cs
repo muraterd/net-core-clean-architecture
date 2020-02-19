@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
-using WebCMS.Data;
+using UI.Data;
 
 namespace Application.MediatR.Admin.Page.Commands
 {

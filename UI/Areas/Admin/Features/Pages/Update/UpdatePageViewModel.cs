@@ -1,6 +1,6 @@
-﻿using WebCMS.Areas.Admin.Models.Base;
+﻿using UI.Areas.Admin.Models.Base;
 
-namespace WebCMS.Areas.Admin.Features.Pages.Update
+namespace UI.Areas.Admin.Features.Pages.Update
 {
     public class UpdatePageViewModel : PageViewModel
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebCMS.Models
+namespace UI.Models
 {
     public class ProjectSetupResult
     {

@@ -2,7 +2,7 @@
 using AutoMapper;
 using Data.Entities;
 
-namespace WebCMS.Areas.Admin.Features.Users.Profile
+namespace UI.Areas.Admin.Features.Users.Profile
 {
     public static class ProfileViewModelMappers
     {

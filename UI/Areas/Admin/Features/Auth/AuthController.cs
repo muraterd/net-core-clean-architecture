@@ -9,10 +9,10 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using WebCMS.Areas.Admin.Features.Base;
-using WebCMS.Data;
+using UI.Areas.Admin.Features.Base;
+using UI.Data;
 
-namespace WebCMS.Areas.Admin.Features.Auth
+namespace UI.Areas.Admin.Features.Auth
 {
     [Area("Admin")]
     [Route("admin/[controller]")]

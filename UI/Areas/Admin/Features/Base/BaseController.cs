@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebCMS.Areas.Admin.Features.Base
+namespace UI.Areas.Admin.Features.Base
 {
     public class BaseController : Controller
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebCMS.Areas.Admin.Features.Base;
+using UI.Areas.Admin.Features.Base;
 
-namespace WebCMS.Areas.Admin.Features.Dashboard
+namespace UI.Areas.Admin.Features.Dashboard
 {
     [Area("Admin")]
     [Route("admin")]

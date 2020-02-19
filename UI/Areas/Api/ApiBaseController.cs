@@ -1,6 +1,6 @@
-using WebCMS.Controllers;
+using UI.Controllers;
 
-namespace WebCMS.Areas.Api
+namespace UI.Areas.Api
 {
     [ApiExceptionFilter]
     public class ApiBaseController : BaseController

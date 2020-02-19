@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebCMS.Areas.Admin.Models.Toastr;
+using UI.Areas.Admin.Models.Toastr;
 
-namespace WebCMS.Areas.Admin.Models.Base
+namespace UI.Areas.Admin.Models.Base
 {
     public class BaseViewModel
     {

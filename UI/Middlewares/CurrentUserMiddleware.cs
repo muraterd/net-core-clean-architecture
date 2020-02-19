@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using WebCMS.Data;
+using UI.Data;
 
 /// <summary>
 /// Populate user object from identity

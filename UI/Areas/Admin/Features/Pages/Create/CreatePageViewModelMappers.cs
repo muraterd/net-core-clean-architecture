@@ -2,7 +2,7 @@
 using AutoMapper;
 using Data.Entities;
 
-namespace WebCMS.Areas.Admin.Features.Pages.Create
+namespace UI.Areas.Admin.Features.Pages.Create
 {
     public static class CreatePageViewModelMappers
     {

@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebCMS.Areas.Admin.Models.Base;
+using UI.Areas.Admin.Models.Base;
 
-namespace WebCMS.Areas.Admin.Features.Users.Profile
+namespace UI.Areas.Admin.Features.Users.Profile
 {
     public class ProfileViewModel : PageViewModel
     {

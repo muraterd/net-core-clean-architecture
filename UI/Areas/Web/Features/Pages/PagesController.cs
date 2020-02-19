@@ -1,9 +1,9 @@
 ﻿using System;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using WebCMS.Areas.Web.Models.Page;
+using UI.Areas.Web.Models.Page;
 
-namespace WebCMS.Areas.Web.Features.Page
+namespace UI.Areas.Web.Features.Page
 {
     [Area("Web")]
     [Route("/[controller]")]

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebCMS.Areas.Admin.Views.Components.PopularPosts
+namespace UI.Areas.Admin.Views.Components.PopularPosts
 {
     public class LeftMenuViewComponent : ViewComponent
     {

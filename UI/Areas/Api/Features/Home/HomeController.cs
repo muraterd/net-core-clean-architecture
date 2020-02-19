@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebCMS.Filters;
+using UI.Filters;
 
-namespace WebCMS.Areas.Api.Features.Home
+namespace UI.Areas.Api.Features.Home
 {
     [JwtAuthorize]
     [Route("api/[controller]")]

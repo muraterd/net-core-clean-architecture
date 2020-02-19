@@ -12,7 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WebCMS.Data;
+using UI.Data;
 
 namespace Application.MediatR.Admin.User.Commands
 {

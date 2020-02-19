@@ -1,7 +1,7 @@
 ﻿using Application.Resources;
 using FluentValidation;
 
-namespace WebCMS.Areas.Admin.Features.Pages.Create
+namespace UI.Areas.Admin.Features.Pages.Create
 {
     public class CreatePageViewModelValidator : AbstractValidator<CreatePageViewModel>
     {

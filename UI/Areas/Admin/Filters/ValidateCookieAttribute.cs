@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Threading.Tasks;
 
-namespace WebCMS.Areas.Admin.Filters
+namespace UI.Areas.Admin.Filters
 {
     public class ValidateCookieAttribute : TypeFilterAttribute
     {

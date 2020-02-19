@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Data.Entities;
 using System.Collections.Generic;
 
-namespace WebCMS.Data
+namespace UI.Data
 {
     public class AppDbContext : DbContext
     {
@@ -25,7 +25,7 @@ namespace WebCMS.Data
         //        new SettingsEntity()
         //        {
         //            Id = 1,
-        //            Title = "WebCMS Project"
+        //            Title = "Project"
         //        });
 
         //    modelBuilder.Entity<UserEntity>().HasData(
