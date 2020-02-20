@@ -20,15 +20,9 @@
     <link href="~/admin/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
     <link href="~/admin/plugins/toastr/toastr.min.css" rel="stylesheet" />
 
-    <!-- STYLES -->
-    <environment include="Development">
-        <link id="sleek-css" rel="stylesheet" href="~/admin/css/sleek.css" />
-    </environment>
-    <environment exclude="Development">
-        <link id="sleek-css" rel="stylesheet" href="~/admin/css/sleek.min.css" />
-    </environment>
-
-    <link id="sleek-css" rel="stylesheet" href="~/admin/css/main.css" />
+    <!-- CSS STYLE -->
+    <link rel="stylesheet" href="~/admin/build/app.css" />
+    <link rel="stylesheet" href="~/admin/css/main.css" />
 
     <!-- FAVICON -->
     <link href="~/admin/img/favicon.png" rel="shortcut icon" />
@@ -69,46 +63,11 @@
     </environment>
 
     <script src="~/admin/plugins/toastr/toastr.min.js"></script>
-    <script src="~/admin/plugins/charts/Chart.min.js"></script>
-    <script src="~/admin/plugins/nprogress/nprogress.js"></script>
-    <script>
-        NProgress.configure({ showSpinner: false });
-        NProgress.start();
-    </script>
-    <script src="~/admin/plugins/moment/moment.min.js"></script>
-    <script src="~/admin/plugins/daterangepicker/daterangepicker.js"></script>
-    <script>
-        jQuery(document).ready(function () {
-            jQuery('input[name="dateRange"]').daterangepicker({
-                autoUpdateInput: false,
-                singleDatePicker: true,
-                locale: {
-                    cancelLabel: 'Clear'
-                }
-            });
-            jQuery('input[name="dateRange"]').on('apply.daterangepicker', function (ev, picker) {
-                jQuery(this).val(picker.startDate.format('MM/DD/YYYY'));
-            });
-            jQuery('input[name="dateRange"]').on('cancel.daterangepicker', function (ev, picker) {
-                jQuery(this).val('');
-            });
-        });
-    </script>
-
-    <environment include="Development">
-        <script src="~/admin/plugins/slimscrollbar/jquery.slimscroll.js"></script>
-        <script src="~/admin/plugins/jekyll-search/jekyll-search.min.js"></script>
-        <script src="~/admin/js/sleek.bundle.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/admin/plugins/slimscrollbar/jquery.slimscroll.min.js"></script>
-        <script src="~/admin/plugins/jekyll-search/jekyll-search.min.js"></script>
-        <script src="~/admin/js/sleek.bundle.min.js"></script>
-    </environment>
 
     <script src="~/admin/plugins/tinymce/tinymce.min.js"></script>
     <script>tinymce.init({ selector: 'textarea', height: 500 });</script>
 
+    <script src="~/admin/build/app.js"></script>
     <script src="~/admin/js/main.js"></script>
 
     @RenderSection("Scripts", false);

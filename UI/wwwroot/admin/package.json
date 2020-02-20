@@ -1,0 +1,16 @@
+{
+  "name": "admin",
+  "scripts": {
+    "build": "parcel build src/app.js --out-dir build/ --public-url /admin/build",
+    "watch": "parcel watch src/app.js --out-dir build/ --public-url /admin/build"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.25.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.1"
+  }
+}

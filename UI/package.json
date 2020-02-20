@@ -1,0 +1,7 @@
+{
+  "name": "main",
+  "scripts": {
+    "admin-build": "cd wwwroot/admin && npm run build",
+    "admin-watch": "cd wwwroot/admin && npm run watch"
+  }
+}
