@@ -15,23 +15,23 @@
     <link href="https://cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css" rel="stylesheet" />
 
     <!-- PLUGINS CSS STYLE -->
-    <link href="~/admin/public/plugins/nprogress/nprogress.css" rel="stylesheet" />
-    <link href="~/admin/public/plugins/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
-    <link href="~/admin/public/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
-    <link href="~/admin/public/plugins/toastr/toastr.min.css" rel="stylesheet" />
+    <link href="~/admin/plugins/nprogress/nprogress.css" rel="stylesheet" />
+    <link href="~/admin/plugins/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+    <link href="~/admin/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link href="~/admin/plugins/toastr/toastr.min.css" rel="stylesheet" />
 
     <!-- STYLES -->
     <environment include="Development">
-        <link id="sleek-css" rel="stylesheet" href="~/admin/public/css/sleek.css" />
+        <link id="sleek-css" rel="stylesheet" href="~/admin/css/sleek.css" />
     </environment>
     <environment exclude="Development">
-        <link id="sleek-css" rel="stylesheet" href="~/admin/public/css/sleek.min.css" />
+        <link id="sleek-css" rel="stylesheet" href="~/admin/css/sleek.min.css" />
     </environment>
 
-    <link id="sleek-css" rel="stylesheet" href="~/admin/public/css/main.css" />
+    <link id="sleek-css" rel="stylesheet" href="~/admin/css/main.css" />
 
     <!-- FAVICON -->
-    <link href="~/admin/public/img/favicon.png" rel="shortcut icon" />
+    <link href="~/admin/img/favicon.png" rel="shortcut icon" />
 </head>
 
 
@@ -62,21 +62,21 @@
     </div>
 
     <environment include="Development">
-        <script src="~/admin/public/plugins/jquery/jquery.js"></script>
+        <script src="~/admin/plugins/jquery/jquery.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/admin/public/plugins/jquery/jquery.min.js"></script>
+        <script src="~/admin/plugins/jquery/jquery.min.js"></script>
     </environment>
 
-    <script src="~/admin/public/plugins/toastr/toastr.min.js"></script>
-    <script src="~/admin/public/plugins/charts/Chart.min.js"></script>
-    <script src="~/admin/public/plugins/nprogress/nprogress.js"></script>
+    <script src="~/admin/plugins/toastr/toastr.min.js"></script>
+    <script src="~/admin/plugins/charts/Chart.min.js"></script>
+    <script src="~/admin/plugins/nprogress/nprogress.js"></script>
     <script>
         NProgress.configure({ showSpinner: false });
         NProgress.start();
     </script>
-    <script src="~/admin/public/plugins/moment/moment.min.js"></script>
-    <script src="~/admin/public/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/admin/plugins/moment/moment.min.js"></script>
+    <script src="~/admin/plugins/daterangepicker/daterangepicker.js"></script>
     <script>
         jQuery(document).ready(function () {
             jQuery('input[name="dateRange"]').daterangepicker({
@@ -96,20 +96,20 @@
     </script>
 
     <environment include="Development">
-        <script src="~/admin/public/plugins/slimscrollbar/jquery.slimscroll.js"></script>
-        <script src="~/admin/public/plugins/jekyll-search/jekyll-search.min.js"></script>
-        <script src="~/admin/public/js/sleek.bundle.js"></script>
+        <script src="~/admin/plugins/slimscrollbar/jquery.slimscroll.js"></script>
+        <script src="~/admin/plugins/jekyll-search/jekyll-search.min.js"></script>
+        <script src="~/admin/js/sleek.bundle.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/admin/public/plugins/slimscrollbar/jquery.slimscroll.min.js"></script>
-        <script src="~/admin/public/plugins/jekyll-search/jekyll-search.min.js"></script>
-        <script src="~/admin/public/js/sleek.bundle.min.js"></script>
+        <script src="~/admin/plugins/slimscrollbar/jquery.slimscroll.min.js"></script>
+        <script src="~/admin/plugins/jekyll-search/jekyll-search.min.js"></script>
+        <script src="~/admin/js/sleek.bundle.min.js"></script>
     </environment>
 
-    <script src="~/admin/public/plugins/tinymce/tinymce.min.js"></script>
+    <script src="~/admin/plugins/tinymce/tinymce.min.js"></script>
     <script>tinymce.init({ selector: 'textarea', height: 500 });</script>
 
-    <script src="~/admin/public/js/main.js"></script>
+    <script src="~/admin/js/main.js"></script>
 
     @RenderSection("Scripts", false);
 

@@ -112,26 +112,6 @@ namespace UI
             //    app.UseExceptionHandler("/Home/Error");
             //}
 
-            // Configure static files
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                Path.Combine(Directory.GetCurrentDirectory(), "Areas", "Admin", "wwwroot")),
-                RequestPath = "/admin/public"
-            });
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                Path.Combine(Directory.GetCurrentDirectory(), "Areas", "Web", "wwwroot")),
-                RequestPath = "/public"
-            });
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
-                RequestPath = "/uploads"
-            });
-
             IList<CultureInfo> supportedCultures = new List<CultureInfo>
             {
                 new CultureInfo("tr-TR"),
@@ -142,6 +122,15 @@ namespace UI
                 DefaultRequestCulture = new RequestCulture("tr-TR"),
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
+            });
+
+            // Configure static files
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
+                RequestPath = "/uploads"
             });
 
             app.UseRouting();
