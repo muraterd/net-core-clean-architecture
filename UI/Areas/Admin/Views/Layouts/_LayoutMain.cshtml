@@ -22,7 +22,6 @@
 
     <!-- CSS STYLE -->
     <link rel="stylesheet" href="~/admin/build/app.css" />
-    <link rel="stylesheet" href="~/admin/css/main.css" />
 
     <!-- FAVICON -->
     <link href="~/admin/img/favicon.png" rel="shortcut icon" />
@@ -55,20 +54,16 @@
         </div>
     </div>
 
-    <environment include="Development">
-        <script src="~/admin/plugins/jquery/jquery.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/admin/plugins/jquery/jquery.min.js"></script>
-    </environment>
-
+    <script src="~/admin/plugins/jquery/jquery.min.js"></script>
     <script src="~/admin/plugins/toastr/toastr.min.js"></script>
+    <script src="~/admin/plugins/slimscrollbar/jquery.slimscroll.min.js"></script>
+    <script src="~/admin/plugins/moment/moment.min.js"></script>
+    <script src="~/admin/plugins/daterangepicker/daterangepicker.js"></script>
 
     <script src="~/admin/plugins/tinymce/tinymce.min.js"></script>
     <script>tinymce.init({ selector: 'textarea', height: 500 });</script>
 
     <script src="~/admin/build/app.js"></script>
-    <script src="~/admin/js/main.js"></script>
 
     @RenderSection("Scripts", false);
 

@@ -1,4 +1,6 @@
-﻿var toaster = $('#toaster');
+﻿import $ from 'jquery';
+
+var toaster = $('#toaster');
 
 toastr.options = {
     closeButton: true,
@@ -18,7 +20,7 @@ toastr.options = {
     hideMethod: "fadeOut"
 };
 
-function showToaster(type, title, message) {
+window.showToaster = (type, title, message) => {
     switch (type) {
         case "success":
             return toastr.success(message, title);
@@ -29,12 +31,4 @@ function showToaster(type, title, message) {
         case "info":
             return toastr.info(message, title);
     }
-}
-
-function showErrorToaster(title, message) {
-    toastr.error(message, title);
-}
-
-function showWarningToaster(title, message) {
-    toastr.warning(message, title);
-}
+};

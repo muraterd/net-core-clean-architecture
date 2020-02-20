@@ -1,6 +1,6 @@
 ﻿// Styles
-import './app.scss';
+import './assets/scss/app.scss';
 
-import bootstrap from 'bootstrap';
+import './sleek-dashboard'; 
 
-//import './sleek-dashboard/js'; 
+import './toastr';

@@ -6,13 +6,9 @@
 
   <ItemGroup>
     <Compile Remove="Data\**" />
-    <Compile Remove="wwwroot\admin\src\assets\**" />
     <Content Remove="Data\**" />
-    <Content Remove="wwwroot\admin\src\assets\**" />
     <EmbeddedResource Remove="Data\**" />
-    <EmbeddedResource Remove="wwwroot\admin\src\assets\**" />
     <None Remove="Data\**" />
-    <None Remove="wwwroot\admin\src\assets\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,12 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\admin\css\main.css" />
-    <None Include="wwwroot\admin\css\main.min.css" />
     <None Include="wwwroot\admin\img\favicon.png" />
     <None Include="wwwroot\admin\img\sleek-icon.png" />
     <None Include="wwwroot\admin\img\user-avatar-default.png" />
-    <None Include="wwwroot\admin\js\main.js" />
     <None Include="wwwroot\admin\plugins\bootstrap\css\bootstrap-grid.css" />
     <None Include="wwwroot\admin\plugins\bootstrap\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\admin\plugins\bootstrap\css\bootstrap-grid.min.css" />

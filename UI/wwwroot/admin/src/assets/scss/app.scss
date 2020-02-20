@@ -1,4 +1,6 @@
-.table div.dropdown {
+﻿@import './sleek-dashboard/sleek.scss';
+
+.table div.dropdown{
     margin: -10px 0
 }
 
@@ -6,10 +8,10 @@
     color: #fe5461 !important;
 }
 
-    .footer a:hover {
-        color: #fe5461 !important;
-        text-decoration: underline;
-    }
+.footer a:hover {
+    color: #fe5461 !important;
+    text-decoration: underline;
+}
 
 ul.pagination .page-item.dots {
     position: relative;
@@ -30,13 +32,13 @@ nav.pagination {
     min-height: 300px;
 }
 
-    .card-content .empty-state {
-        display: flex;
-        flex: 1;
-        font-size: 20px;
-        align-items: center;
-        justify-content: center;
-    }
+.card-content .empty-state {
+    display: flex;
+    flex: 1;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+}
 
 /* Table */
 .table .user-image {
@@ -65,33 +67,33 @@ nav.pagination {
     padding: 0px;
 }
 
-    .widget-dropdown .dropdown-menu .dropdown-item a {
-        display: block;
-        color: #232323;
-        padding: 3px 10px;
-        padding: 7px 20px;
-        transition: all 0.15s ease-in-out;
-    }
+.widget-dropdown .dropdown-menu .dropdown-item a {
+    display: block;
+    color: #232323;
+    padding: 3px 10px;
+    padding: 7px 20px;
+    transition: all 0.15s ease-in-out;
+}
 
-        .widget-dropdown .dropdown-menu .dropdown-item a:focus,
-        .widget-dropdown .dropdown-menu .dropdown-item a:hover {
-            color: inherit;
-            background-color: #f5f5f5;
-        }
+.widget-dropdown .dropdown-menu .dropdown-item a:focus,
+.widget-dropdown .dropdown-menu .dropdown-item a:hover {
+    color: inherit;
+    background-color: #f5f5f5;
+}
 
-    .widget-dropdown .dropdown-menu .dropdown-item a i {
-        padding-right: 7px;
-    }
+.widget-dropdown .dropdown-menu .dropdown-item a i {
+    padding-right: 7px;
+}
 
-    .widget-dropdown .dropdown-menu .dropdown-item.danger a {
-        color: #fe5461 !important;
-        font-weight: 500;
-    }
+.widget-dropdown .dropdown-menu .dropdown-item.danger a {
+    color: #fe5461 !important;
+    font-weight: 500;
+}
 
-        .widget-dropdown .dropdown-menu .dropdown-item.danger a:hover {
-            color: #fff !important;
-            background-color: #fe5461;
-        }
+.widget-dropdown .dropdown-menu .dropdown-item.danger a:hover {
+    color: #fff !important;
+    background-color: #fe5461;
+}
 
 /* Alerts */
 .alert.alert-highlighted.alert-success {
@@ -99,7 +101,7 @@ nav.pagination {
     border-color: #a7c2ff;
 }
 
-.alert.alert-highlighted.alert-warning, 
+.alert.alert-highlighted.alert-warning,
 .alert.alert-highlighted.alert-warning .close {
     color: #463b15;
 }
