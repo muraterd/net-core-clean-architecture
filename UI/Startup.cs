@@ -1,4 +1,3 @@
-using System.IO;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -7,8 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using Serilog;
 using UI.Areas.Admin;
 using UI.Areas.Api;
 using UI.Areas.Web;
@@ -25,7 +22,6 @@ using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Application.MediatR.Admin.Auth.Commands.CreateSuperAdmin;
 using UI.Areas.Admin.Features.Users.Profile;
-using Data.Helpers;
 
 namespace UI
 {
@@ -96,6 +92,8 @@ namespace UI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.EnsureDbCreated();
+
             app.UseCors(builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
@@ -126,12 +124,7 @@ namespace UI
 
             // Configure static files
             app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
-                RequestPath = "/uploads"
-            });
+            app.AddUploadsFolder();
 
             app.UseRouting();
 
@@ -155,33 +148,6 @@ namespace UI
                 AdminStartup.ConfigureAutoMapper(o);
                 WebStartup.ConfigureAutoMapper(o);
             });
-
-            // Create and Seed Database
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                Log.Information("Checking if database exists");
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
-                var created = dbContext.Database.EnsureCreated();
-
-                if (created)
-                    Log.Information("Database created!");
-                else
-                    Log.Information("Database is already created");
-
-
-                // EnsureAllPathsCreated
-                try
-                {
-                    Log.Information("Checking if upload paths exists");
-                    FileUploadHelper.EnsureAllUploadPathsCreated();
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex, "Upload paths could not be created!");
-                }
-            }
-
-            Log.Information($"Running in environment: {env.EnvironmentName}");
         }
     }
 }

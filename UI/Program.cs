@@ -49,6 +49,7 @@ namespace UI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseKestrel();
                 })
                 .UseSerilog();
     }
