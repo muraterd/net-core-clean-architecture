@@ -8,7 +8,9 @@ using UI.Areas.Admin.Features.Pages.Update;
 using Application.MediatR.Admin.Page.Commands;
 using UI.Areas.Admin.Features.Pages.Create;
 using UI.Areas.Admin.Features.Auth.ForgotPassword;
-using Application.MediatR.Common.Auth.Commands;
+using Application.MediatR.Admin.Auth.Commands;
+using UI.Areas.Admin.Features.Auth.ResetPassword;
+using Application.MediatR.Common.Auth.Queries.IsSuperAdminExist;
 
 namespace UI.Areas.Admin
 {
@@ -29,6 +31,8 @@ namespace UI.Areas.Admin
             o.CreateMap<PageEntity, CreatePageViewModel>();
             o.CreateMap<CreatePageViewModel, CreatePageCommand>();
             o.CreateMap<ForgotPasswordViewModel, SendPasswordResetMailCommand>();
+            o.CreateMap<ResetPasswordViewModel, ValidatePasswordResetTokenQuery>();
+            o.CreateMap<ResetPasswordViewModel, ResetPasswordCommand>();
         }
     }
 }

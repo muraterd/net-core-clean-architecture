@@ -1,5 +1,5 @@
-﻿using Application.MediatR.Admin.Page.Commands;
-using Application.MediatR.Common.Auth.Commands;
+﻿using Application.MediatR.Admin.Auth.Commands;
+using Application.MediatR.Admin.Page.Commands;
 using AutoMapper;
 
 namespace UI.Areas.Admin.Features.Auth.ForgotPassword

@@ -6,12 +6,14 @@ using Application.Exceptions;
 using Application.MediatR.Admin.Auth.Commands.CreateSuperAdmin;
 using Application.MediatR.Admin.Auth.Commands.Login;
 using Application.MediatR.Admin.Auth.Queries.IsSuperAdminExist;
+using Application.MediatR.Common.Auth.Queries.IsSuperAdminExist;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using UI.Areas.Admin.Features.Auth.ForgotPassword;
+using UI.Areas.Admin.Features.Auth.ResetPassword;
 using UI.Areas.Admin.Features.Base;
 using UI.Data;
 
@@ -139,14 +141,40 @@ namespace UI.Areas.Admin.Features.Auth
         }
 
         [HttpGet("reset-password")]
-        public IActionResult ResetPassword(string token)
+        public async Task<IActionResult> ResetPassword(string token)
         {
-            //var viewModel = new ForgotPasswordViewModel
-            //{
-            //    Email = email
-            //};
+            bool isTokenValid = await Mediator.Send(new ValidatePasswordResetTokenQuery() { Token = token });
 
-            return Ok($"reset {token}");
+            if (!isTokenValid)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var viewModel = new ResetPasswordViewModel();
+            viewModel.Token = token;
+
+            return View(viewModel);
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            bool isTokenValid = await Mediator.Send(viewModel.ToValidatePasswordResetTokenQuery());
+
+            if (!isTokenValid)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var user = await Mediator.Send(viewModel.ToResetPasswordCommand());
+            await user.LoginWithCookie(HttpContext, false);
+
+            return RedirectToAction("Index", "Dashboard");
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UI.Data;
 
-namespace Application.MediatR.Common.Auth.Commands
+namespace Application.MediatR.Admin.Auth.Commands
 {
     public class SendPasswordResetMailCommand : IRequest
     {
