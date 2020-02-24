@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using UI.Areas.Admin.Models.Base;
 
-public class ErrorMessageTagHelper : TagHelper
+public class SuccessMessageTagHelper : TagHelper
 {
     public BaseViewModel Model { get; set; }
 
@@ -11,10 +11,10 @@ public class ErrorMessageTagHelper : TagHelper
         output.TagName = "";
         string html = "";
 
-        if (Model.ErrorMessage != null)
+        if (Model.SuccessMessage != null)
         {
-            html += $@"<div class=""alert alert-danger alert-highlighted"" role=""alert"">
-                        {Model.ErrorMessage}
+            html += $@"<div class=""alert alert-success alert-highlighted"" role=""alert"">
+                        {Model.SuccessMessage}
                         <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
                             <span aria-hidden=""true"">×</span>
                         </button>

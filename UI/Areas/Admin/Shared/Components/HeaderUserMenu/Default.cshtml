@@ -6,13 +6,13 @@
 <!-- User Account -->
 <li class="dropdown user-menu">
     <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-        <profile-photo file-name="@currentUser.ProfilePhoto" path="@FileUploadSize.SMALL" css-class="user-image" />
+        <profile-photo file-name="@currentUser.ProfilePhoto.FileName" path="@FileUploadSize.SMALL" css-class="user-image" />
         <span class="d-none d-lg-inline-block">@currentUser.FullName</span>
     </button>
     <ul class="dropdown-menu dropdown-menu-right">
         <!-- User image -->
         <li class="dropdown-header">
-            <profile-photo file-name="@currentUser.ProfilePhoto" path="@FileUploadSize.SMALL" css-class="user-image" />
+            <profile-photo file-name="@currentUser.ProfilePhoto.FileName" path="@FileUploadSize.SMALL" css-class="user-image" />
             <div class="d-inline-block">
                 @currentUser.FullName
                 <small class="pt-1">@currentUser.Email</small>

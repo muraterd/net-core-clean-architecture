@@ -7,6 +7,8 @@ using UI.Areas.Admin.Models.Base;
 using UI.Areas.Admin.Features.Pages.Update;
 using Application.MediatR.Admin.Page.Commands;
 using UI.Areas.Admin.Features.Pages.Create;
+using UI.Areas.Admin.Features.Auth.ForgotPassword;
+using Application.MediatR.Common.Auth.Commands;
 
 namespace UI.Areas.Admin
 {
@@ -26,6 +28,7 @@ namespace UI.Areas.Admin
             o.CreateMap<UpdatePageViewModel, UpdatePageCommand>();
             o.CreateMap<PageEntity, CreatePageViewModel>();
             o.CreateMap<CreatePageViewModel, CreatePageCommand>();
+            o.CreateMap<ForgotPasswordViewModel, SendPasswordResetMailCommand>();
         }
     }
 }

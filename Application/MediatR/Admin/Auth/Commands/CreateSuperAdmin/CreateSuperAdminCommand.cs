@@ -15,6 +15,8 @@ namespace Application.MediatR.Admin.Auth.Commands.CreateSuperAdmin
 {
     public class CreateSuperAdminCommand : IRequest<UserEntity>
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string PasswordConfirm { get; set; }
@@ -31,22 +33,24 @@ namespace Application.MediatR.Admin.Auth.Commands.CreateSuperAdmin
             this.hashProvider = hashProvider;
         }
 
-        public async Task<UserEntity> Handle(CreateSuperAdminCommand request, CancellationToken cancellationToken)
+        public async Task<UserEntity> Handle(CreateSuperAdminCommand command, CancellationToken cancellationToken)
         {
-            request.Email = request.Email.Trim();
-            request.Password = request.Password.Trim();
+            command.Email = command.Email.Trim();
+            command.Password = command.Password.Trim();
 
-            UserEntity user = await dbContext.Users.FirstOrDefaultAsync(w => w.Email == request.Email && !w.IsDeleted);
+            UserEntity user = await dbContext.Users.FirstOrDefaultAsync(w => w.Email == command.Email && !w.IsDeleted);
 
             if (user != null)
             {
-                throw new DuplicateResultException($"Bu email ile daha önce kayıt olunmuş Email: {request.Email}");
+                throw new DuplicateResultException($"Bu email ile daha önce kayıt olunmuş Email: {command.Email}");
             }
 
             user = new UserEntity()
             {
-                Email = request.Email,
-                Password = hashProvider.Hash(request.Password),
+                FirstName = command.FirstName,
+                LastName = command.LastName,
+                Email = command.Email,
+                Password = hashProvider.Hash(command.Password),
                 Roles = new List<UserRoleEntity>()
                 {
                     new UserRoleEntity()

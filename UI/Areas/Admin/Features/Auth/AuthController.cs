@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.Exceptions;
@@ -9,6 +10,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using UI.Areas.Admin.Features.Auth.ForgotPassword;
 using UI.Areas.Admin.Features.Base;
 using UI.Data;
 
@@ -18,6 +21,13 @@ namespace UI.Areas.Admin.Features.Auth
     [Route("admin/[controller]")]
     public class AuthController : BaseController
     {
+        private readonly ILogger<AuthController> logger;
+
+        public AuthController(ILogger<AuthController> logger)
+        {
+            this.logger = logger;
+        }
+
         [HttpGet("login")]
         public async Task<IActionResult> Login()
         {
@@ -88,6 +98,55 @@ namespace UI.Areas.Admin.Features.Auth
                 ViewBag.ErrorMessage = "Bu email ile bir kullanıcı zaten kayıtlı";
                 return View();
             }
+        }
+
+        [HttpGet("forgot-password")]
+        public IActionResult ForgotPassword(string email)
+        {
+            var viewModel = new ForgotPasswordViewModel
+            {
+                Email = email
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            try
+            {
+                await Mediator.Send(viewModel.ToSendPasswordResetMailCommand());
+
+                viewModel.ScreenState = Models.Base.ScreenState.Success;
+            }
+            catch (NotFoundException ex)
+            {
+                // For security reason we show success state
+                viewModel.ScreenState = Models.Base.ScreenState.Success;
+            }
+            catch
+            {
+                viewModel.ScreenState = Models.Base.ScreenState.Error;
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpGet("reset-password")]
+        public IActionResult ResetPassword(string token)
+        {
+            //var viewModel = new ForgotPasswordViewModel
+            //{
+            //    Email = email
+            //};
+
+            return Ok($"reset {token}");
         }
     }
 }

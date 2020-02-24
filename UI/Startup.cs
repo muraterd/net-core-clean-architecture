@@ -22,6 +22,13 @@ using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Application.MediatR.Admin.Auth.Commands.CreateSuperAdmin;
 using UI.Areas.Admin.Features.Users.Profile;
+using Application.Interfaces.Mail;
+using Infrastructure.Mail;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Application.Interfaces.Providers;
+using Infrastructure.Providers;
 
 namespace UI
 {

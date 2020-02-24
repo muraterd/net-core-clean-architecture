@@ -12,6 +12,8 @@ namespace Data.Entities
         public string Password { get; set; }
         public List<UserRoleEntity> Roles { get; set; } = new List<UserRoleEntity>();
         public List<PhotoEntity> Photos { get; set; } = new List<PhotoEntity>();
+        public string PasswordResetToken { get; set; }
+        public DateTime PasswordResetTokenExpireDate { get; set; }
 
         // Getters
         public string FullName
@@ -21,7 +23,17 @@ namespace Data.Entities
 
         public PhotoEntity ProfilePhoto
         {
-            get { return Photos.FirstOrDefault(w => w.IsProfilePhoto); }
+            get
+            {
+                var profilePhoto = Photos.FirstOrDefault(w => w.IsProfilePhoto);
+
+                if (profilePhoto == null)
+                {
+                    profilePhoto = new PhotoEntity();
+                }
+
+                return profilePhoto;
+            }
         }
     }
 }

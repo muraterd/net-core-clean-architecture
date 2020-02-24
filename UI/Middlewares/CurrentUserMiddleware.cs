@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using Application.Utils.Extensions.EFCoreExtensions;
+using Data;
 using Data.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +34,10 @@ public class CurrentUserMiddleware
             var userId = Convert.ToInt64(((ClaimsIdentity)identity).Claims
                 .FirstOrDefault(c => c.Type == "Id").Value ?? "0");
 
-            var dbUser = await dbContext.Users.Include(w=>w.Photos).FirstOrDefaultAsync(w => w.Id == userId);
+            var dbUser = await dbContext.Users
+                .IncludeProfilePhoto()
+                .FirstOrDefaultAsync(w => w.Id == userId);
+
             var profilePhoto = dbUser.Photos.FirstOrDefault(w => w.IsProfilePhoto);
 
             if (dbUser != null)
@@ -42,7 +46,7 @@ public class CurrentUserMiddleware
                 user.FirstName = dbUser.FirstName;
                 user.LastName = dbUser.LastName;
                 user.Email = dbUser.Email;
-                user.ProfilePhoto = profilePhoto != null ? profilePhoto.FileName : "";
+                user.ProfilePhoto = profilePhoto ?? new PhotoEntity();
                 user.Roles = dbUser.Roles.Select(c => c.Role).ToList();
             }
         }

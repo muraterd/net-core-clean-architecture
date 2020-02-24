@@ -11,9 +11,9 @@ public class ProfilePhotoTagHelper : TagHelper
     {
         get
         {
-            return FileName != null
+            return !string.IsNullOrEmpty(FileName)
                 ? $"/{Path}/{FileName}"
-                : "/admin/public/img/user-avatar-default.png";
+                : "/admin/img/user-avatar-default.png";
         }
     }
 
@@ -23,7 +23,7 @@ public class ProfilePhotoTagHelper : TagHelper
 
         var image = new HtmlTag("img").Attr("src", ImageSource).Attr("alt", "user_avatar");
 
-        if(CssClass != null)
+        if (CssClass != null)
         {
             image.AddClass(CssClass);
         }
