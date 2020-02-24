@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace UI.Areas.Admin.Features.Base
 {
-    [LogExceptions]
     public class BaseController : Controller
     {
         protected IMediator Mediator => HttpContext.RequestServices.GetService(typeof(IMediator)) as IMediator;
