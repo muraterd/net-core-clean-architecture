@@ -10,12 +10,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using UI.Data;
 
-namespace Application.MediatR.Api.Auth.Commands.Login
+namespace Application.MediatR.Common.Auth.Commands
 {
     public class LoginCommand : IRequest<UserEntity>
     {
         public string Email { get; set; }
         public string Password { get; set; }
+
+        public bool RememberMe = true;
     }
 
     public class LoginCommandHandler : IRequestHandler<LoginCommand, UserEntity>

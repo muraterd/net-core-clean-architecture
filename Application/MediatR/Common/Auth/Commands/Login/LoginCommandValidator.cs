@@ -1,7 +1,7 @@
 ﻿using Application.Resources;
 using FluentValidation;
 
-namespace Application.MediatR.Api.Auth.Commands.Login
+namespace Application.MediatR.Common.Auth.Commands.Login
 {
     public class LoginCommandValidator : AbstractValidator<LoginCommand>
     {

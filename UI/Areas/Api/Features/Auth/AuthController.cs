@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using UI.Areas.Api.Models;
 using System.Threading.Tasks;
 using Application.Interfaces.Providers;
-using Application.MediatR.Api.Auth.Commands.Login;
 using Application.MediatR.Api.Auth.Commands.Register;
+using Application.MediatR.Common.Auth.Commands;
 
 namespace UI.Areas.Api.Features.Auth
 {
