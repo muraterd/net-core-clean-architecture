@@ -112,7 +112,6 @@ namespace UI.Areas.Admin.Features.Auth
 
             try
             {
-                var cm = viewModel.ToCreateSuperAdminCommand();
                 var user = await Mediator.Send(viewModel.ToCreateSuperAdminCommand());
                 await user.LoginWithCookie(HttpContext);
 
