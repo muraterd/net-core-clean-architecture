@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
     <Compile Remove="Data\**" />
+    <Content Remove="Controllers\**" />
     <Content Remove="Data\**" />
+    <EmbeddedResource Remove="Controllers\**" />
     <EmbeddedResource Remove="Data\**" />
+    <None Remove="Controllers\**" />
     <None Remove="Data\**" />
   </ItemGroup>
 
@@ -187,7 +191,7 @@
       <LastGenOutput>AuthController.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Areas\Admin\Features\Auth\AuthController.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Areas\Admin\ValidationErrorMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
