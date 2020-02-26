@@ -133,9 +133,6 @@ namespace UI.Areas.Admin.Features.Auth
                 Email = email
             };
 
-            viewModel.Email = "stormwr@dsf.com";
-            viewModel.ScreenState = Models.Base.ScreenState.Success;
-
             return View(viewModel);
         }
 
