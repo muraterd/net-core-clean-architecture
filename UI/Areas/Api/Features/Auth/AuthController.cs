@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.Interfaces.Providers;
 using Application.MediatR.Api.Auth.Commands.Register;
 using Application.MediatR.Common.Auth.Commands;
+using Microsoft.Extensions.Localization;
 
 namespace UI.Areas.Api.Features.Auth
 {
@@ -12,10 +13,14 @@ namespace UI.Areas.Api.Features.Auth
     public class AuthController : ApiBaseController
     {
         private readonly ITokenProvider tokenProvider;
+        private readonly IStringLocalizer<AuthController> localizer;
 
-        public AuthController(ITokenProvider tokenProvider)
+        public AuthController(ITokenProvider tokenProvider, IStringLocalizer<AuthController> localizer)
         {
             this.tokenProvider = tokenProvider;
+            this.localizer = localizer;
+
+            var hede = localizer["Hello"];
         }
 
         [HttpPost("login")]

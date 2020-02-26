@@ -1,9 +1,9 @@
-﻿using Application.Resources;
-using FluentValidation;
+﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UI.Resources.Areas.Admin;
 
 namespace UI.Areas.Admin.Features.Auth.ForgotPassword
 {

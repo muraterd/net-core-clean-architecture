@@ -1,7 +1,6 @@
-﻿
-using Application.Resources;
-using FluentValidation;
+﻿using FluentValidation;
 using System;
+using UI.Resources.Areas.Admin;
 
 public class StrongPasswordOptions
 {

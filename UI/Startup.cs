@@ -48,7 +48,8 @@ namespace UI
             Configuration.Bind("AppConfig", appConfig);
 
             services
-                .AddControllersWithViews()
+                .AddMvc()
+                .AddViewLocalization()
                 .AddFluentValidation(fv =>
                 {
                     fv.RegisterValidatorsFromAssemblyContaining<CreateSuperAdminCommandValidator>();
@@ -93,7 +94,7 @@ namespace UI
                     };
                 });
 
-            services.AddLocalization();
+            services.AddLocalization(o => o.ResourcesPath = "Resources");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -120,11 +121,13 @@ namespace UI
             IList<CultureInfo> supportedCultures = new List<CultureInfo>
             {
                 new CultureInfo("tr-TR"),
+                new CultureInfo("en"),
+                new CultureInfo("en-GB"),
                 new CultureInfo("en-US"),
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture("tr-TR"),
+                DefaultRequestCulture = new RequestCulture("en"),
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });

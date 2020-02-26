@@ -16,8 +16,6 @@ namespace Application.MediatR.Common.Auth.Commands
     {
         public string Email { get; set; }
         public string Password { get; set; }
-
-        public bool RememberMe = true;
     }
 
     public class LoginCommandHandler : IRequestHandler<LoginCommand, UserEntity>

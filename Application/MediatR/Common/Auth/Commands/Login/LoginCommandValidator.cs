@@ -1,5 +1,4 @@
-﻿using Application.Resources;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Application.MediatR.Common.Auth.Commands.Login
 {
@@ -7,12 +6,9 @@ namespace Application.MediatR.Common.Auth.Commands.Login
     {
         public LoginCommandValidator()
         {
-            RuleFor(x => x.Email)
-                .NotEmpty().WithMessage(ValidationErrorMessages.EmailEmpty)
-                .EmailAddress().WithMessage(ValidationErrorMessages.EmailNotValid);
+            RuleFor(x => x.Email).NotEmpty().EmailAddress();
 
-            RuleFor(x => x.Password)
-                .NotEmpty().WithMessage(ValidationErrorMessages.PasswordEmpty);
+            RuleFor(x => x.Password).NotEmpty();
         }
     }
 }

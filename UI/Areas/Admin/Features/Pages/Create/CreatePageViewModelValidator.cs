@@ -1,5 +1,5 @@
-﻿using Application.Resources;
-using FluentValidation;
+﻿using FluentValidation;
+using UI.Resources.Areas.Admin;
 
 namespace UI.Areas.Admin.Features.Pages.Create
 {

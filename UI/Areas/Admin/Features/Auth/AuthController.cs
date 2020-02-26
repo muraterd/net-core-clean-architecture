@@ -10,9 +10,14 @@ using Application.MediatR.Common.Auth.Queries.IsSuperAdminExist;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using UI.Areas.Admin.Features.Auth.ForgotPassword;
+using UI.Areas.Admin.Features.Auth.Login;
+using UI.Areas.Admin.Features.Auth.Register;
 using UI.Areas.Admin.Features.Auth.ResetPassword;
 using UI.Areas.Admin.Features.Base;
 using UI.Data;
@@ -24,10 +29,15 @@ namespace UI.Areas.Admin.Features.Auth
     public class AuthController : BaseController
     {
         private readonly ILogger<AuthController> logger;
+        private readonly IStringLocalizer<AuthController> localizer;
 
-        public AuthController(ILogger<AuthController> logger)
+        public AuthController(ILogger<AuthController> logger, IStringLocalizer<AuthController> localizer)
         {
             this.logger = logger;
+            this.localizer = localizer;
+
+            var hede = localizer["Hello"];
+
         }
 
         [HttpGet("login")]
@@ -40,31 +50,33 @@ namespace UI.Areas.Admin.Features.Auth
                 return RedirectToAction("Register");
             }
 
-            return View(new LoginCommand());
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture: "en", uiCulture: "en")));
+
+            return View(new LoginViewModel());
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginCommand command)
+        public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(command);
+                return View(viewModel);
             }
 
             try
             {
-                var user = await Mediator.Send(command);
+                var user = await Mediator.Send(viewModel.ToLoginCommand());
 
-                await user.LoginWithCookie(HttpContext, command.RememberMe);
+                await user.LoginWithCookie(HttpContext, viewModel.RememberMe);
 
                 return Redirect("/admin");
             }
             catch (AccessDeniedException)
             {
-                ViewBag.ErrorMessage = "Kullanıcı adı veya şifre hatalı";
+                viewModel.ErrorMessage = localizer["Error_WrongEmailOrPassword"];
             }
 
-            return View(new LoginCommand());
+            return View(viewModel);
         }
 
         [HttpGet("logout")]
@@ -75,30 +87,41 @@ namespace UI.Areas.Admin.Features.Auth
         }
 
         [HttpGet("register")]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
+            if (await Mediator.Send(new IsSuperAdminExistQuery()))
+            {
+                return RedirectToAction("Login");
+            }
+
             return View();
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(CreateSuperAdminCommand command)
+        public async Task<IActionResult> Register(RegisterViewModel viewModel)
         {
+            if (await Mediator.Send(new IsSuperAdminExistQuery()))
+            {
+                return RedirectToAction("Login");
+            }
+
             if (!ModelState.IsValid)
             {
-                return View(command);
+                return View(viewModel);
             }
 
             try
             {
-                var user = await Mediator.Send(command);
+                var cm = viewModel.ToCreateSuperAdminCommand();
+                var user = await Mediator.Send(viewModel.ToCreateSuperAdminCommand());
                 await user.LoginWithCookie(HttpContext);
 
                 return Redirect("/admin");
             }
             catch (DuplicateResultException)
             {
-                ViewBag.ErrorMessage = "Bu email ile bir kullanıcı zaten kayıtlı";
-                return View();
+                ViewBag.ErrorMessage = localizer["Error_ AlreadyRegistered"];
+                return View(viewModel);
             }
         }
 

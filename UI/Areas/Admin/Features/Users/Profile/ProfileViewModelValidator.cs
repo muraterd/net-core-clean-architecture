@@ -1,6 +1,6 @@
-﻿using Application.Resources;
-using FluentValidation;
+﻿using FluentValidation;
 using System.Collections.Generic;
+using UI.Resources.Areas.Admin;
 
 namespace UI.Areas.Admin.Features.Users.Profile
 {
