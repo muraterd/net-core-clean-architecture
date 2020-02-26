@@ -50,7 +50,7 @@ namespace UI.Areas.Admin.Features.Auth
                 return RedirectToAction("Register");
             }
 
-            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture: "en", uiCulture: "en")));
+            //Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture: "en", uiCulture: "en")));
 
             return View(new LoginViewModel());
         }
@@ -94,7 +94,7 @@ namespace UI.Areas.Admin.Features.Auth
                 return RedirectToAction("Login");
             }
 
-            return View();
+            return View(new RegisterViewModel());
         }
 
         [HttpPost("register")]

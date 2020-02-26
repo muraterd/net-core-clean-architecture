@@ -4,60 +4,55 @@
     Layout = "~/Areas/Admin/Views/Layouts/_LayoutLogin.cshtml";
 }
 
+@inject IViewLocalizer Localizer;
+
 <div class="row justify-content-center mt-5">
     <div class="col-xl-5 col-lg-6 col-md-10">
         <div class="card">
             <div class="card-header bg-primary">
                 <div class="app-brand">
                     <a href="/index.html">
-                        <img class="brand-icon" src="~/admin/public/img/sleek-icon.png" alt="" height="33" />
-                        <span class="brand-name">Yeni Kullanıcı</span>
+                        <img class="brand-icon" src="~/admin/img/sleek-icon.png" alt="" height="33" />
+                        <span class="brand-name">Admin Panel</span>
                     </a>
                 </div>
             </div>
             <div class="card-body p-5">
-                <h4 class="text-dark">Yönetici Hesabı</h4>
+                <h4 class="text-dark">@Localizer["Title_Register"]</h4>
 
                 <div class="mb-5 mt-2">
-                    <p>Tüm yetkilere sahip olacak bir kullanıcı belirleyin</p>
+                    <p>@Localizer["Title_Description"]</p>
                 </div>
 
-                @{
-                    if (ViewBag.ErrorMessage != null)
-                    {
-                        <div class="alert alert-danger alert-highlighted" role="alert">
-                            @ViewBag.ErrorMessage
-                        </div>
-                    }
-                }
+                <error-message model="@Model" />
 
                 <form method="post">
                     <div class="row">
                         <div class="form-group col-md-12 mb-4">
-                            <input asp-for="FirstName" placeholder="Ad" class="form-control input-lg" />
+                            <input asp-for="FirstName" placeholder="@Localizer["Label_FirstName"]" class="form-control input-lg" />
                             <span asp-validation-for="FirstName" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-12 mb-4">
-                            <input asp-for="LastName" placeholder="Soyad" class="form-control input-lg" />
+                            <input asp-for="LastName" placeholder="@Localizer["Label_LastName"]" class="form-control input-lg" />
                             <span asp-validation-for="LastName" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-12 mb-4">
-                            <input asp-for="Email" placeholder="Email" class="form-control input-lg" />
+                            <input asp-for="Email" placeholder="@Localizer["Label_Email"]" class="form-control input-lg" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
 
                         <div class="form-group col-md-12 ">
-                            <input asp-for="Password" placeholder="Şifre" type="password" class="form-control input-lg" />
+                            <input asp-for="Password" placeholder="@Localizer["Label_Password"]" type="password" class="form-control input-lg" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
 
                         <div class="form-group col-md-12 ">
-                            <input asp-for="PasswordConfirm" placeholder="Şifre Tekrar" type="password" class="form-control input-lg" />
+                            <input asp-for="PasswordConfirm" placeholder="@Localizer["Label_PasswordConfirm"]" type="password" class="form-control input-lg" />
                             <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
                         </div>
 
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Tamam</button>
+                            <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">@Localizer["Button_Submit"]</button>
                         </div>
                     </div>
                 </form>

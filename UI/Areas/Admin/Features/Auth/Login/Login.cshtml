@@ -23,19 +23,19 @@
                 </div>
             </div>
             <div class="card-body p-5">
-                <h4 class="text-dark mb-4">Giriş Yap</h4>
+                <h4 class="text-dark mb-4">@Localizer["Title_Login"]</h4>
 
                 <error-message model="@Model" />
 
                 <form method="post">
                     <div class="row">
                         <div class="form-group col-md-12 mb-4">
-                            <label>Email</label>
+                            <label>@Localizer["Label_Email"]</label>
                             <input asp-for="Email" class="form-control input-lg" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-12 ">
-                            <label>Şifre</label>
+                            <label>@Localizer["Label_Password"]</label>
                             <input asp-for="Password" type="password" class="form-control input-lg" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
@@ -43,15 +43,15 @@
                             <div class="d-flex my-2 justify-content-between">
                                 <div class="d-inline-block mr-3">
                                     <label class="control control-checkbox checkbox-primary">
-                                        Beni Hatırla
+                                        @Localizer["Label_RememberMe"]
                                         <input type="checkbox" asp-for="RememberMe" />
                                         <div class="control-indicator"></div>
                                     </label>
 
                                 </div>
-                                <p><a asp-controller="Auth" asp-action="ForgotPassword" class="text-blue">Şifreni mi unuttun?</a></p>
+                                <p><a asp-controller="Auth" asp-action="ForgotPassword" class="text-blue">@Localizer["ForgotPassword"]</a></p>
                             </div>
-                            <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Giriş</button>
+                            <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">@Localizer["Button_Login"]</button>
                         </div>
                     </div>
                 </form>

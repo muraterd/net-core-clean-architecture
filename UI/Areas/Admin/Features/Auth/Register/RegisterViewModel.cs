@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UI.Areas.Admin.Models.Base;
 
 namespace UI.Areas.Admin.Features.Auth.Register
 {
-    public class RegisterViewModel
+    public class RegisterViewModel : PageViewModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
